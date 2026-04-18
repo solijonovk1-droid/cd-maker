@@ -1,0 +1,13 @@
+<script setup>
+import { RouterView } from 'vue-router'
+</script>
+
+<template>
+  <div class="min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <RouterView />
+  </div>
+</template>
+
+<style>
+/* Global transition for routes if desired */
+</style>

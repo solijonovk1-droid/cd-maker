@@ -11,14 +11,20 @@ export const useAuthStore = defineStore('auth', () => {
   // Initialize — check existing session on app load
   const init = async () => {
     loading.value = true
-    const { data: { session } } = await supabase.auth.getSession()
-    user.value = session?.user ?? null
-    loading.value = false
-
-    // Listen for auth state changes (login/logout)
-    supabase.auth.onAuthStateChange((_event, session) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
       user.value = session?.user ?? null
-    })
+
+      // Listen for auth state changes (login/logout)
+      supabase.auth.onAuthStateChange((_event, session) => {
+        user.value = session?.user ?? null
+      })
+    } catch (err) {
+      console.warn('Supabase auth init error:', err)
+      user.value = null
+    } finally {
+      loading.value = false
+    }
   }
 
   // LOGIN with email + password

@@ -278,17 +278,150 @@ watch(() => authStore.user, (newUser) => {
                   tpl.premium && authStore.userPlan === 'Free' ? '' : 'hover:shadow-2xl hover:shadow-indigo-100 hover:-translate-y-2'
                 ]"
               >
-                <!-- Image Preview Area -->
-                <div class="aspect-[3/4] relative overflow-hidden bg-slate-100">
-                  <img 
-                    :src="tpl.image" 
-                    :alt="tpl.name" 
-                    :class="[
-                      'w-full h-full object-cover transition-all duration-700',
-                      tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-110'
-                    ]"
-                  />
-                  
+                <!-- Dynamic CSS Preview Area -->
+                <div class="aspect-[3/4] relative overflow-hidden" :style="{ background: tpl.bg }">
+
+                  <!-- LAYOUT: minimal -->
+                  <div v-if="tpl.layout === 'minimal'" class="absolute inset-0 p-4 flex flex-col gap-2 transition-transform duration-700"
+                    :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
+                    <div class="h-10 rounded-lg mb-1" :style="{ background: tpl.color }"></div>
+                    <div class="h-1.5 rounded w-2/3" :style="{ background: tpl.accent, opacity: 0.8 }"></div>
+                    <div class="h-1 rounded w-1/2 bg-slate-300 mt-1"></div>
+                    <div class="h-px w-full mt-2 mb-1" :style="{ background: tpl.accent, opacity: 0.5 }"></div>
+                    <div class="space-y-1.5">
+                      <div class="h-1 rounded bg-slate-200 w-full"></div>
+                      <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                      <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                    </div>
+                    <div class="h-1.5 rounded w-1/3 mt-3 font-bold" :style="{ background: tpl.accent }"></div>
+                    <div class="space-y-1 mt-1">
+                      <div class="flex gap-1.5 items-center">
+                        <div class="w-1.5 h-1.5 rounded-full" :style="{ background: tpl.accent }"></div>
+                        <div class="h-1 rounded bg-slate-200 flex-1"></div>
+                      </div>
+                      <div class="flex gap-1.5 items-center">
+                        <div class="w-1.5 h-1.5 rounded-full" :style="{ background: tpl.accent }"></div>
+                        <div class="h-1 rounded bg-slate-200 flex-1"></div>
+                      </div>
+                      <div class="flex gap-1.5 items-center">
+                        <div class="w-1.5 h-1.5 rounded-full" :style="{ background: tpl.accent }"></div>
+                        <div class="h-1 rounded bg-slate-200 w-3/4"></div>
+                      </div>
+                    </div>
+                    <div class="h-1.5 rounded w-1/3 mt-3" :style="{ background: tpl.accent }"></div>
+                    <div class="space-y-1 mt-1">
+                      <div class="h-1 rounded bg-slate-200 w-full"></div>
+                      <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                    </div>
+                  </div>
+
+                  <!-- LAYOUT: sidebar -->
+                  <div v-else-if="tpl.layout === 'sidebar'" class="absolute inset-0 flex transition-transform duration-700"
+                    :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
+                    <div class="w-2/5 h-full flex flex-col gap-3 p-3" :style="{ background: tpl.color }">
+                      <div class="w-10 h-10 rounded-full mx-auto mt-2" :style="{ background: tpl.accent, opacity: 0.8 }"></div>
+                      <div class="h-1.5 rounded w-3/4 mx-auto bg-white/40"></div>
+                      <div class="h-1 rounded w-1/2 mx-auto bg-white/20"></div>
+                      <div class="h-px w-full bg-white/20 my-1"></div>
+                      <div class="space-y-1.5">
+                        <div class="h-1 rounded bg-white/30 w-full"></div>
+                        <div class="h-1 rounded bg-white/20 w-5/6"></div>
+                        <div class="h-1 rounded bg-white/20 w-4/5"></div>
+                      </div>
+                      <div class="mt-2 space-y-1">
+                        <div class="h-4 rounded" :style="{ background: tpl.accent, opacity: 0.5 }"></div>
+                        <div class="h-1 rounded bg-white/20 w-full"></div>
+                        <div class="h-1 rounded bg-white/20 w-5/6"></div>
+                      </div>
+                    </div>
+                    <div class="flex-1 p-3 flex flex-col gap-2">
+                      <div class="h-1.5 rounded w-1/2 mt-2" :style="{ background: tpl.accent }"></div>
+                      <div class="space-y-1">
+                        <div class="h-1 rounded bg-slate-200 w-full"></div>
+                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                      </div>
+                      <div class="h-1.5 rounded w-1/3 mt-2" :style="{ background: tpl.accent }"></div>
+                      <div class="space-y-1">
+                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
+                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
+                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 w-3/4"></div></div>
+                      </div>
+                      <div class="h-1.5 rounded w-2/5 mt-2" :style="{ background: tpl.accent }"></div>
+                      <div class="space-y-1">
+                        <div class="h-1 rounded bg-slate-200 w-full"></div>
+                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- LAYOUT: bold -->
+                  <div v-else-if="tpl.layout === 'bold'" class="absolute inset-0 flex flex-col transition-transform duration-700"
+                    :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
+                    <div class="h-1/3 flex flex-col items-center justify-center gap-2 p-3 relative overflow-hidden" :style="{ background: tpl.color }">
+                      <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full opacity-20" :style="{ background: tpl.accent }"></div>
+                      <div class="w-12 h-12 rounded-2xl" :style="{ background: tpl.accent }"></div>
+                      <div class="h-2 rounded w-2/3 bg-white/70"></div>
+                      <div class="h-1 rounded w-1/2 bg-white/40"></div>
+                    </div>
+                    <div class="flex-1 p-4 flex flex-col gap-2">
+                      <div class="flex gap-2 mt-1">
+                        <div class="px-2 py-0.5 rounded-full text-[6px] font-bold" :style="{ background: tpl.accent + '22', color: tpl.accent }">●</div>
+                        <div class="px-2 py-0.5 rounded-full text-[6px]" :style="{ background: tpl.accent + '11' }">●</div>
+                        <div class="px-2 py-0.5 rounded-full text-[6px]" :style="{ background: tpl.accent + '11' }">●</div>
+                      </div>
+                      <div class="space-y-1.5 mt-1">
+                        <div class="h-1 rounded bg-slate-200 w-full"></div>
+                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                      </div>
+                      <div class="h-px w-full my-1" :style="{ background: tpl.accent, opacity: 0.3 }"></div>
+                      <div class="h-1.5 rounded w-2/5" :style="{ background: tpl.color }"></div>
+                      <div class="space-y-1">
+                        <div class="flex gap-1.5 items-start">
+                          <div class="w-1.5 h-1.5 rounded mt-0.5" :style="{ background: tpl.accent }"></div>
+                          <div class="flex-1 space-y-0.5"><div class="h-1 rounded bg-slate-200 w-full"></div><div class="h-1 rounded bg-slate-200 w-3/4"></div></div>
+                        </div>
+                        <div class="flex gap-1.5 items-start">
+                          <div class="w-1.5 h-1.5 rounded mt-0.5" :style="{ background: tpl.accent }"></div>
+                          <div class="flex-1 space-y-0.5"><div class="h-1 rounded bg-slate-200 w-full"></div><div class="h-1 rounded bg-slate-200 w-2/3"></div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- LAYOUT: split -->
+                  <div v-else-if="tpl.layout === 'split'" class="absolute inset-0 flex flex-col transition-transform duration-700"
+                    :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
+                    <div class="h-[45%] p-4 flex flex-col justify-end gap-2" :style="{ background: tpl.color }">
+                      <div class="h-2 rounded w-3/4 bg-white/80"></div>
+                      <div class="h-1 rounded w-2/4 bg-white/50"></div>
+                      <div class="flex gap-2 mt-1">
+                        <div class="h-1 rounded w-12" :style="{ background: tpl.accent }"></div>
+                        <div class="h-1 rounded w-12 bg-white/30"></div>
+                      </div>
+                    </div>
+                    <div class="flex-1 p-3 grid grid-cols-2 gap-3">
+                      <div class="space-y-1.5">
+                        <div class="h-1.5 rounded" :style="{ background: tpl.accent }"></div>
+                        <div class="h-1 rounded bg-slate-200 w-full"></div>
+                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                        <div class="h-1.5 rounded mt-2" :style="{ background: tpl.accent }"></div>
+                        <div class="h-1 rounded bg-slate-200 w-full"></div>
+                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                      </div>
+                      <div class="space-y-1.5">
+                        <div class="h-1.5 rounded" :style="{ background: tpl.accent }"></div>
+                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
+                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
+                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 w-3/4"></div></div>
+                        <div class="h-1.5 rounded mt-2" :style="{ background: tpl.accent }"></div>
+                        <div class="h-1 rounded bg-slate-200 w-full"></div>
+                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- Locked Overlay -->
                   <div v-if="tpl.premium && authStore.userPlan === 'Free'" class="absolute inset-0 bg-slate-900/40 flex items-center justify-center">
                     <div class="flex flex-col items-center gap-3">
@@ -300,12 +433,12 @@ watch(() => authStore.user, (newUser) => {
                   </div>
 
                   <!-- Selected Badge -->
-                  <div v-if="cvStore.selectedTemplate === tpl.id" class="absolute top-6 left-6 bg-emerald-500 text-white p-2 rounded-xl shadow-lg ring-4 ring-emerald-500/20">
+                  <div v-if="cvStore.selectedTemplate === tpl.id" class="absolute top-4 left-4 bg-emerald-500 text-white p-2 rounded-xl shadow-lg ring-4 ring-emerald-500/20">
                      <Check class="w-5 h-5" />
                   </div>
 
                   <!-- Hover Action -->
-                  <div v-if="!(tpl.premium && authStore.userPlan === 'Free')" class="absolute inset-0 flex items-center justify-center bg-indigo-600/0 group-hover:bg-indigo-600/10 transition-colors">
+                  <div v-if="!(tpl.premium && authStore.userPlan === 'Free')" class="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
                      <button class="px-8 py-3 bg-white text-slate-900 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-2xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                         Use Template
                      </button>
@@ -313,9 +446,12 @@ watch(() => authStore.user, (newUser) => {
                 </div>
 
                 <!-- Template Info -->
-                <div class="p-6 text-center">
-                   <h3 class="font-black text-slate-900 uppercase tracking-tight text-sm">{{ tpl.name }}</h3>
-                   <div class="flex items-center justify-center gap-2 mt-2">
+                <div class="p-5 text-center border-t border-slate-100">
+                   <div class="flex items-center justify-center gap-2 mb-1.5">
+                     <div class="w-3 h-3 rounded-full border-2" :style="{ background: tpl.accent, borderColor: tpl.color }"></div>
+                     <h3 class="font-black text-slate-900 uppercase tracking-tight text-sm">{{ tpl.name }}</h3>
+                   </div>
+                   <div class="flex items-center justify-center gap-2">
                       <span v-if="tpl.premium" class="text-[9px] font-bold text-indigo-500 uppercase tracking-widest">Premium</span>
                       <span v-else class="text-[9px] font-bold text-emerald-500 uppercase tracking-widest">Free</span>
                    </div>

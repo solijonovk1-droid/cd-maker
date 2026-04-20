@@ -13,6 +13,8 @@ app.use(router)
 
 // Initialize auth session before mounting
 const authStore = useAuthStore()
-authStore.init().then(() => {
+authStore.init().catch((err) => {
+  console.warn('Auth init failed, mounting anyway:', err)
+}).finally(() => {
   app.mount('#app')
 })

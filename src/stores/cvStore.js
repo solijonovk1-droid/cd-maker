@@ -36,26 +36,28 @@ export const useCvStore = defineStore('cv', () => {
   const selectedTemplate = ref('minimal') // minimal, professional, creative
 
   const templates = ref([
-    { id: 'minimal', name: 'Modern Minimal', image: '/templates/template1.png', premium: false },
-    { id: 'professional', name: 'Enterprise Pro', image: '/templates/template2.png', premium: false },
-    { id: 'creative', name: 'Neo-Creative', image: '/templates/template3.png', premium: false },
-    { id: 't4', name: 'Executive Gold', image: '/templates/template1.png', premium: true },
-    { id: 't5', name: 'Clean Mint', image: '/templates/template2.png', premium: true },
-    { id: 't6', name: 'Deep Maroon', image: '/templates/template3.png', premium: true },
-    { id: 't7', name: 'Silicon Valley', image: '/templates/template1.png', premium: true },
-    { id: 't8', name: 'Oxford Classic', image: '/templates/template2.png', premium: true },
-    { id: 't9', name: 'Design Portfolio', image: '/templates/template3.png', premium: true },
-    { id: 't10', name: 'Startup Vibe', image: '/templates/template1.png', premium: true },
-    { id: 't11', name: 'Corporate Elite', image: '/templates/template2.png', premium: true },
-    { id: 't12', name: 'Freelancer Bold', image: '/templates/template3.png', premium: true },
-    { id: 't13', name: 'Medical Pro', image: '/templates/template1.png', premium: true },
-    { id: 't14', name: 'Legal Standard', image: '/templates/template2.png', premium: true },
-    { id: 't15', name: 'Academic Researcher', image: '/templates/template3.png', premium: true },
-    { id: 't16', name: 'Sales Closer', image: '/templates/template1.png', premium: true },
-    { id: 't17', name: 'Engineering Draft', image: '/templates/template2.png', premium: true },
-    { id: 't18', name: 'Marketing Glow', image: '/templates/template3.png', premium: true },
-    { id: 't19', name: 'Cloud Specialist', image: '/templates/template1.png', premium: true },
-    { id: 't20', name: 'Global Vision', image: '/templates/template2.png', premium: true },
+    // Free templates
+    { id: 'minimal',       name: 'Modern Minimal',      premium: false, color: '#1e293b', accent: '#6366f1', bg: '#f8fafc', layout: 'minimal' },
+    { id: 'professional',  name: 'Enterprise Pro',       premium: false, color: '#0f172a', accent: '#0ea5e9', bg: '#f0f9ff', layout: 'sidebar' },
+    { id: 'creative',      name: 'Neo-Creative',         premium: false, color: '#7c3aed', accent: '#ec4899', bg: '#fdf4ff', layout: 'bold' },
+    // Premium templates
+    { id: 't4',  name: 'Executive Gold',       premium: true,  color: '#78350f', accent: '#d97706', bg: '#fffbeb', layout: 'split' },
+    { id: 't5',  name: 'Clean Mint',           premium: true,  color: '#065f46', accent: '#10b981', bg: '#ecfdf5', layout: 'minimal' },
+    { id: 't6',  name: 'Deep Maroon',          premium: true,  color: '#881337', accent: '#e11d48', bg: '#fff1f2', layout: 'sidebar' },
+    { id: 't7',  name: 'Silicon Valley',       premium: true,  color: '#1d4ed8', accent: '#3b82f6', bg: '#eff6ff', layout: 'bold' },
+    { id: 't8',  name: 'Oxford Classic',       premium: true,  color: '#1c1917', accent: '#78716c', bg: '#fafaf9', layout: 'split' },
+    { id: 't9',  name: 'Design Portfolio',     premium: true,  color: '#0891b2', accent: '#22d3ee', bg: '#ecfeff', layout: 'bold' },
+    { id: 't10', name: 'Startup Vibe',         premium: true,  color: '#ea580c', accent: '#fb923c', bg: '#fff7ed', layout: 'minimal' },
+    { id: 't11', name: 'Corporate Elite',      premium: true,  color: '#1e3a5f', accent: '#2563eb', bg: '#f0f4ff', layout: 'sidebar' },
+    { id: 't12', name: 'Freelancer Bold',      premium: true,  color: '#4a044e', accent: '#a855f7', bg: '#faf5ff', layout: 'split' },
+    { id: 't13', name: 'Medical Pro',          premium: true,  color: '#0c4a6e', accent: '#0284c7', bg: '#f0f9ff', layout: 'minimal' },
+    { id: 't14', name: 'Legal Standard',       premium: true,  color: '#1a1a2e', accent: '#4f4e8f', bg: '#f5f5ff', layout: 'sidebar' },
+    { id: 't15', name: 'Academic Researcher',  premium: true,  color: '#14532d', accent: '#16a34a', bg: '#f0fdf4', layout: 'split' },
+    { id: 't16', name: 'Sales Closer',         premium: true,  color: '#7f1d1d', accent: '#dc2626', bg: '#fef2f2', layout: 'bold' },
+    { id: 't17', name: 'Engineering Draft',    premium: true,  color: '#0f2027', accent: '#64748b', bg: '#f1f5f9', layout: 'minimal' },
+    { id: 't18', name: 'Marketing Glow',       premium: true,  color: '#831843', accent: '#db2777', bg: '#fdf2f8', layout: 'split' },
+    { id: 't19', name: 'Cloud Specialist',     premium: true,  color: '#0c4a6e', accent: '#38bdf8', bg: '#e0f2fe', layout: 'sidebar' },
+    { id: 't20', name: 'Global Vision',        premium: true,  color: '#134e4a', accent: '#14b8a6', bg: '#f0fdfa', layout: 'bold' },
   ])
 
   const cvs = ref([

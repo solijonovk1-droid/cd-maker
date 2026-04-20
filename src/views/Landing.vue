@@ -316,6 +316,8 @@ import { Search } from 'lucide-vue-next'
 </template>
 
 <style scoped>
+@reference "../style.css";
+
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }

@@ -35,7 +35,6 @@ export const useCvStore = defineStore('cv', () => {
 
   const selectedTemplate = ref('minimal') // minimal, professional, creative
 
-<<<<<<< HEAD
   const templates = ref([
     // Free templates
     { id: 'minimal',       name: 'Modern Minimal',      premium: false, color: '#1e293b', accent: '#6366f1', bg: '#f8fafc', layout: 'minimal' },
@@ -85,8 +84,6 @@ export const useCvStore = defineStore('cv', () => {
     }
   ])
 
-=======
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
   const generateCV = async () => {
     isGenerating.value = true
     
@@ -163,7 +160,6 @@ export const useCvStore = defineStore('cv', () => {
     }
   }
 
-<<<<<<< HEAD
   const syncWithUser = (user) => {
     if (!user) return
     currentCV.value.personalInfo.fullName = user.user_metadata?.full_name || user.email.split('@')[0]
@@ -178,20 +174,14 @@ export const useCvStore = defineStore('cv', () => {
     }
   }
 
-=======
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
   return {
     currentJobDescription,
     isGenerating,
     currentCV,
     selectedTemplate,
-<<<<<<< HEAD
     templates,
     cvs,
     generateCV,
     syncWithUser
-=======
-    generateCV
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
   }
 })

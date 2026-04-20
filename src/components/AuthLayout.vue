@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { Sparkles, Zap } from 'lucide-vue-next'
+import CvMakerLogo from './CvMakerLogo.vue'
 
 const router = useRouter()
 const props = defineProps({ mode: { type: String, default: 'login' } })
@@ -20,11 +21,8 @@ const props = defineProps({ mode: { type: String, default: 'login' } })
       <!-- Card Container -->
       <div class="w-full max-w-sm">
         <!-- Logo -->
-        <div class="flex items-center gap-3 mb-12 group cursor-pointer" @click="router.push('/')">
-          <div class="bg-gradient-to-br from-indigo-600 to-violet-600 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform">
-            <Sparkles class="w-6 h-6" />
-          </div>
-          <span class="font-black text-2xl tracking-tighter text-slate-900">AICV Builder</span>
+        <div class="flex items-center mb-12 cursor-pointer" @click="router.push('/')">
+          <CvMakerLogo size="lg" />
         </div>
 
         <!-- Heading -->

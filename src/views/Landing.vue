@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 import { Sparkles, FileText, CheckCircle2, ArrowRight, User, MousePointer2, Zap, BarChart3, Users, Quote } from 'lucide-vue-next'
 import { useAuthStore } from '../stores/authStore'
+import CvMakerLogo from '../components/CvMakerLogo.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -58,11 +59,8 @@ import { Search } from 'lucide-vue-next'
     <!-- Navbar -->
     <nav class="navbar bg-white/70 backdrop-blur-xl sticky top-0 z-[100] border-b border-slate-100 px-6 lg:px-20 py-4">
       <div class="flex-1">
-        <div class="flex items-center gap-3 cursor-pointer group" @click="router.push('/')">
-          <div class="bg-gradient-to-br from-indigo-600 to-violet-600 p-2 rounded-xl shadow-lg shadow-indigo-100 group-hover:rotate-12 transition-all">
-            <Sparkles class="w-5 h-5 text-white" />
-          </div>
-          <span class="font-black text-xl tracking-tighter text-slate-900">AICV Builder</span>
+        <div class="flex items-center cursor-pointer" @click="router.push('/')">
+          <CvMakerLogo size="md" />
         </div>
       </div>
       
@@ -289,11 +287,8 @@ import { Search } from 'lucide-vue-next'
     <!-- Footer -->
     <footer class="footer p-20 bg-white border-t border-slate-100 container mx-auto rounded-t-[4rem]">
       <aside>
-        <div class="flex items-center gap-3 mb-6">
-          <div class="bg-indigo-600 p-2 rounded-xl">
-            <Sparkles class="w-5 h-5 text-white" />
-          </div>
-          <span class="font-black text-xl tracking-tighter text-slate-900 uppercase">AICV Builder</span>
+        <div class="flex items-center mb-6">
+          <CvMakerLogo size="md" />
         </div>
         <p class="text-slate-400 font-semibold max-w-xs leading-relaxed">The AI-first platform for job seekers who value their time and career growth.</p>
         <p class="mt-10 text-xs font-bold text-slate-300 uppercase tracking-widest">© 2026 AICV Builder. All rights reserved.</p>
@@ -316,11 +311,8 @@ import { Search } from 'lucide-vue-next'
 </template>
 
 <style scoped>
-<<<<<<< HEAD
 @reference "../style.css";
 
-=======
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }

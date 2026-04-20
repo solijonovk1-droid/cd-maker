@@ -5,16 +5,12 @@ import { supabase } from '../lib/supabase'
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null)
   const loading = ref(true)
-<<<<<<< HEAD
 
-=======
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
   const userPlan = ref('Free')
 
   // Initialize — check existing session on app load
   const init = async () => {
     loading.value = true
-<<<<<<< HEAD
     try {
       const { data: { session } } = await supabase.auth.getSession()
       user.value = session?.user ?? null
@@ -29,16 +25,6 @@ export const useAuthStore = defineStore('auth', () => {
     } finally {
       loading.value = false
     }
-=======
-    const { data: { session } } = await supabase.auth.getSession()
-    user.value = session?.user ?? null
-    loading.value = false
-
-    // Listen for auth state changes (login/logout)
-    supabase.auth.onAuthStateChange((_event, session) => {
-      user.value = session?.user ?? null
-    })
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
   }
 
   // LOGIN with email + password
@@ -73,7 +59,6 @@ export const useAuthStore = defineStore('auth', () => {
     userPlan.value = newPlan
   }
 
-<<<<<<< HEAD
   const updateProfile = async (fullName, email) => {
     const { data, error } = await supabase.auth.updateUser({
       email: email,
@@ -85,7 +70,4 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return { user, loading, userPlan, init, login, register, logout, updatePlan, updateProfile }
-=======
-  return { user, loading, userPlan, init, login, register, logout, updatePlan }
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 })

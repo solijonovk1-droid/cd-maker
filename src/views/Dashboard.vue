@@ -12,7 +12,6 @@ const router = useRouter()
 const authStore = useAuthStore()
 const currentTab = ref('cv-builder')
 const showSuccess = ref(false)
-<<<<<<< HEAD
 const showPaymentModal = ref(false)
 const showProfileModal = ref(false)
 const selectedPlanToUpgrade = ref(null)
@@ -43,16 +42,12 @@ const handleProfileUpdate = async () => {
     isUpdatingProfile.value = false
   }
 }
-=======
-const upgradedPlan = ref('')
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 
 const handleLogout = async () => {
   await authStore.logout()
   router.push('/login')
 }
 
-<<<<<<< HEAD
 const handlePlanUpgrade = (plan) => {
   if (plan.name === authStore.userPlan) return
   if (plan.name === 'Free') {
@@ -69,13 +64,6 @@ const confirmPayment = () => {
   authStore.updatePlan(planName)
   upgradedPlan.value = planName
   showPaymentModal.value = false
-=======
-const handlePlanUpgrade = (planName) => {
-  if (planName === authStore.userPlan) return
-  
-  authStore.updatePlan(planName)
-  upgradedPlan.value = planName
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
   showSuccess.value = true
   
   setTimeout(() => {
@@ -118,34 +106,7 @@ const plans = [
 ]
 
 const searchQuery = ref('')
-<<<<<<< HEAD
 const mockCvs = computed(() => cvStore.cvs)
-=======
-
-const mockCvs = ref([
-  {
-    id: 1,
-    title: 'Frontend Developer Resume',
-    lastModified: '2 hours ago',
-    status: 'Ready',
-    template: 'Modern Professional'
-  },
-  {
-    id: 2,
-    title: 'UI/UX Designer Portfolio',
-    lastModified: 'Yesterday',
-    status: 'Draft',
-    template: 'Creative Minimal'
-  },
-  {
-    id: 3,
-    title: 'Project Manager CV',
-    lastModified: '3 days ago',
-    status: 'Optimized',
-    template: 'Executive'
-  }
-])
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 
 const selectedCv = ref(null)
 
@@ -153,7 +114,6 @@ const openCv = (cv) => {
   selectedCv.value = cv
   currentTab.value = 'cv-builder'
 }
-<<<<<<< HEAD
 
 const filteredCvs = computed(() => {
   if (!searchQuery.value) return mockCvs.value
@@ -184,8 +144,6 @@ watch(() => authStore.user, (newUser) => {
     cvStore.syncWithUser(newUser)
   }
 }, { immediate: true })
-=======
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 </script>
 
 <template>
@@ -201,8 +159,8 @@ watch(() => authStore.user, (newUser) => {
             <Menu class="w-5 h-5" />
           </label>
         </div>
-        <div class="flex-1 px-4">
-          <span class="font-bold text-lg tracking-tight">AI CV Builder</span>
+        <div class="flex-1 px-2">
+          <CvMakerLogo size="sm" />
         </div>
       </div>
 
@@ -210,67 +168,6 @@ watch(() => authStore.user, (newUser) => {
       <main class="flex-1 overflow-y-auto relative custom-scrollbar">
         <CVGenerator v-if="currentTab === 'cv-builder'" @switch-tab="(tab) => currentTab = tab" />
         
-<<<<<<< HEAD
-=======
-
-        <div v-else-if="currentTab === 'settings'" class="min-h-full p-8 lg:p-12 bg-slate-50">
-          <div class="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <div class="text-center mb-16">
-              <h1 class="text-4xl font-black text-slate-900 mb-4 tracking-tight uppercase">Subscription Plans</h1>
-              <p class="text-slate-500 font-medium max-w-2xl mx-auto">Choose the perfect plan to accelerate your career. Upgrade anytime as your needs grow.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div 
-                v-for="plan in plans" 
-                :key="plan.name"
-                class="relative flex flex-col p-8 bg-white rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 group"
-              >
-                <div v-if="plan.popular" class="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-600 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-indigo-200">
-                  Most Popular
-                </div>
-
-                <div class="mb-10 text-center">
-                  <span class="text-slate-400 font-black uppercase tracking-[0.2em] text-[10px]">{{ plan.name }}</span>
-                  <div class="flex items-baseline justify-center gap-1 mt-4">
-                    <span class="text-5xl font-black text-slate-900 leading-none tracking-tighter">{{ plan.price }}</span>
-                    <span class="text-slate-400 font-bold">/mo</span>
-                  </div>
-                  <p class="mt-4 text-sm text-slate-500 font-medium leading-relaxed">{{ plan.description }}</p>
-                </div>
-
-                <ul class="flex-1 space-y-4 mb-10">
-                  <li v-for="feature in plan.features" :key="feature" class="flex items-center gap-3 text-slate-600 text-sm font-bold">
-                    <div class="bg-indigo-50 p-1 rounded-lg">
-                      <Check class="w-3.5 h-3.5 text-indigo-600" />
-                    </div>
-                    {{ feature }}
-                  </li>
-                </ul>
-
-                <button 
-                  @click="handlePlanUpgrade(plan.name)"
-                  :class="[
-                    'w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all duration-300',
-                    authStore.userPlan === plan.name 
-                      ? 'bg-slate-100 text-slate-400 cursor-default' 
-                      : (plan.popular ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 hover:bg-indigo-700' : 'bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-200')
-                  ]"
-                >
-                  {{ authStore.userPlan === plan.name ? 'Active Plan' : (plan.name === 'Free' ? 'Downgrade' : plan.buttonText) }}
-                </button>
-              </div>
-            </div>
-            
-            <div class="mt-16 text-center">
-               <button @click="currentTab = 'cv-builder'" class="btn btn-ghost btn-sm text-slate-400 font-bold hover:text-indigo-600">
-                 Return to CV Builder
-               </button>
-            </div>
-          </div>
-        </div>
-
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
         <div v-else-if="currentTab === 'cvs'" class="min-h-full p-8 lg:p-12 bg-slate-50">
           <div class="max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700">
             <!-- Header & Search -->
@@ -295,11 +192,7 @@ watch(() => authStore.user, (newUser) => {
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               <!-- Create New Card -->
               <div 
-<<<<<<< HEAD
                 v-if="authStore.userPlan !== 'Free' || mockCvs.length < 5"
-=======
-                v-if="authStore.userPlan !== 'Free' || mockCvs.length < 2"
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
                 @click="currentTab = 'cv-builder'"
                 class="group relative flex flex-col items-center justify-center p-8 bg-dashed border-2 border-dashed border-slate-200 rounded-[2.5rem] hover:border-indigo-400 hover:bg-indigo-50/30 transition-all duration-500 cursor-pointer h-[320px]"
               >
@@ -309,40 +202,15 @@ watch(() => authStore.user, (newUser) => {
                 <span class="font-black text-slate-400 group-hover:text-indigo-600 uppercase tracking-widest text-xs">Create New CV</span>
               </div>
 
-<<<<<<< HEAD
               <!-- CV Cards -->
               <div 
                 v-for="cv in filteredCvs" 
-=======
-              <!-- Locked Card for Free Users -->
-              <div 
-                v-if="authStore.userPlan === 'Free' && mockCvs.length >= 2"
-                @click="currentTab = 'settings'"
-                class="group relative flex flex-col items-center justify-center p-8 bg-slate-100 border-2 border-slate-200 rounded-[2.5rem] hover:bg-indigo-50 transition-all duration-500 cursor-pointer h-[320px]"
-              >
-                <div class="w-16 h-16 rounded-full bg-white text-slate-400 group-hover:text-indigo-600 flex items-center justify-center transition-all duration-500 mb-6">
-                  <Lock class="w-8 h-8" />
-                </div>
-                <div class="text-center">
-                  <span class="block font-black text-slate-400 group-hover:text-indigo-600 uppercase tracking-widest text-xs mb-2">Limit Reached</span>
-                  <p class="text-[10px] text-slate-400 font-bold px-4">Upgrade to PRO for unlimited CV generation.</p>
-                </div>
-              </div>
-
-              <!-- CV Cards -->
-              <div 
-                v-for="cv in mockCvs" 
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
                 :key="cv.id"
                 @click="openCv(cv)"
                 class="group relative bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 flex flex-col h-[320px] cursor-pointer"
               >
                 <!-- Card Preview Area (Mock Image) -->
-<<<<<<< HEAD
                 <div class="h-40 bg-slate-100 relative overflow-hidden flex items-center justify-center">
-=======
-                <div class="h-40 bg-slate-50 relative overflow-hidden flex items-center justify-center">
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
                   <div class="w-24 h-32 bg-white rounded-lg shadow-sm border border-slate-100 p-3 space-y-2 group-hover:scale-110 transition-transform duration-500">
                     <div class="h-1.5 w-1/2 bg-slate-100 rounded"></div>
                     <div class="h-1.5 w-full bg-slate-50 rounded"></div>
@@ -391,7 +259,6 @@ watch(() => authStore.user, (newUser) => {
             </div>
           </div>
         </div>
-<<<<<<< HEAD
 
         <div v-else-if="currentTab === 'templates'" class="min-h-full p-8 lg:p-12 bg-slate-50">
           <div class="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -831,15 +698,6 @@ watch(() => authStore.user, (newUser) => {
                   Cancel
                 </button>
               </div>
-=======
-        <div v-else class="h-full flex items-center justify-center p-8 bg-slate-50">
-          <div class="text-center max-w-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-2xl shadow-slate-200/50">
-               <component :is="sidebarItems.find(i => i.id === currentTab)?.icon || FileText" class="w-16 h-16 mx-auto text-primary mb-6 opacity-20" />
-               <h2 class="text-2xl font-black mb-3 text-slate-800 uppercase tracking-widest">{{ sidebarItems.find(i => i.id === currentTab)?.label }}</h2>
-               <p class="text-slate-500 font-medium leading-relaxed">We're building something special here. This feature will be available in the next update.</p>
-               <button @click="currentTab = 'cv-builder'" class="btn btn-primary btn-sm mt-8 rounded-xl px-6">Back to Dashboard</button>
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
             </div>
           </div>
         </div>
@@ -878,11 +736,8 @@ watch(() => authStore.user, (newUser) => {
       <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
       <div class="flex flex-col w-[260px] h-full bg-white border-r border-slate-200">
         <!-- Logo -->
-        <div class="flex items-center gap-3 p-8 group cursor-pointer" @click="router.push('/')">
-          <div class="bg-gradient-to-br from-indigo-600 to-violet-600 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-200 group-hover:scale-110 transition-all duration-300">
-            <Sparkles class="w-5 h-5" />
-          </div>
-          <span class="font-black text-xl tracking-tighter text-slate-900">AI CV Builder</span>
+        <div class="flex items-center px-6 py-5 cursor-pointer hover:opacity-80 transition-opacity" @click="router.push('/')">
+          <CvMakerLogo size="md" />
         </div>
 
         <!-- Navigation -->
@@ -924,7 +779,6 @@ watch(() => authStore.user, (newUser) => {
 
           <!-- User Profile -->
           <div class="space-y-4">
-<<<<<<< HEAD
             <div @click="openProfileEditor" class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 group cursor-pointer hover:bg-white hover:shadow-xl hover:shadow-slate-100 transition-all duration-300">
               <div class="avatar placeholder shrink-0">
                 <div class="bg-indigo-600 text-white rounded-xl w-10 shadow-md group-hover:scale-110 transition-transform">
@@ -933,16 +787,6 @@ watch(() => authStore.user, (newUser) => {
               </div>
               <div class="overflow-hidden">
                 <p class="text-xs font-black text-slate-900 truncate tracking-tight uppercase">{{ authStore.user?.user_metadata?.full_name || authStore.user?.email.split('@')[0] }}</p>
-=======
-            <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 group">
-              <div class="avatar placeholder shrink-0">
-                <div class="bg-indigo-600 text-white rounded-xl w-10 shadow-md">
-                  <span class="text-xs font-black">{{ (authStore.user?.email?.[0] ?? 'U').toUpperCase() }}</span>
-                </div>
-              </div>
-              <div class="overflow-hidden">
-                <p class="text-xs font-black text-slate-900 truncate tracking-tight uppercase">{{ authStore.user?.email.split('@')[0] }}</p>
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
                 <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{{ authStore.userPlan }} Account</p>
               </div>
             </div>
@@ -957,7 +801,6 @@ watch(() => authStore.user, (newUser) => {
     </div>
   </div>
 </template>
-<<<<<<< HEAD
 
 <style scoped>
 .bg-dashed {
@@ -966,5 +809,3 @@ watch(() => authStore.user, (newUser) => {
 }
 </style>
 
-=======
->>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364

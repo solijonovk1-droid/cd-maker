@@ -316,8 +316,11 @@ import { Search } from 'lucide-vue-next'
 </template>
 
 <style scoped>
+<<<<<<< HEAD
 @reference "../style.css";
 
+=======
+>>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }

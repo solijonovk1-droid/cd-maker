@@ -4,9 +4,18 @@ import { useCvStore } from '../stores/cvStore'
 import {
   Sparkles, Loader2, Download, Check, User, FileText, Briefcase,
   GraduationCap, Plus, Trash2, Zap, Wand2, Search, Info, RotateCcw,
+<<<<<<< HEAD
   ZapOff, ZoomIn, ZoomOut, Maximize2, ChevronLeft, ChevronRight
 } from 'lucide-vue-next'
 import CVPreview from './CVPreview.vue'
+=======
+  ZapOff, ZoomIn, ZoomOut, Maximize2, ChevronLeft, ChevronRight, ChevronDown, Palette, Lock
+} from 'lucide-vue-next'
+import CVPreview from './CVPreview.vue'
+import { useAuthStore } from '../stores/authStore'
+
+const authStore = useAuthStore()
+>>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 
 const store = useCvStore()
 const activeTab = ref('ai') // ai | personal | summary | experience | skills | education
@@ -60,6 +69,25 @@ const removeBullet = (expIdx, bIdx) => store.currentCV.experience[expIdx].bullet
 // Zoom helpers
 const zoomIn = () => { if (zoomLevel.value < 150) zoomLevel.value += 10 }
 const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
+<<<<<<< HEAD
+=======
+
+const isTemplateDropdownOpen = ref(false)
+const templateOptions = [
+  { id: 'minimal', label: 'Minimalist', desc: 'Clean & focused', premium: false },
+  { id: 'professional', label: 'Enterprise Pro', desc: 'Trustworthy & solid', premium: true },
+  { id: 'creative', label: 'Neo-Creative', desc: 'Modern & unique', premium: true }
+]
+
+const selectTemplate = (opt) => {
+  if (opt.premium && authStore.userPlan === 'Free') {
+    // Show upgrade prompt or just don't select
+    return
+  }
+  store.selectedTemplate = opt.id
+  isTemplateDropdownOpen.value = false
+}
+>>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
 </script>
 
 <template>
@@ -349,6 +377,7 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
              <button @click="zoomIn" class="btn btn-ghost btn-xs btn-square rounded-xl text-slate-500"><ZoomIn class="w-3.5 h-3.5" /></button>
           </div>
           
+<<<<<<< HEAD
           <div class="flex items-center gap-2">
              <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Presentation:</span>
              <select v-model="store.selectedTemplate" class="select select-bordered select-xs bg-white rounded-xl font-bold uppercase text-[9px] tracking-widest px-3 focus:ring-indigo-500 border-slate-200">
@@ -356,6 +385,42 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
                <option value="professional">Enterprise Pro</option>
                <option value="creative">Neo-Creative</option>
              </select>
+=======
+          <div class="flex items-center gap-3">
+             <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Presentation:</span>
+             <div class="dropdown dropdown-end">
+               <div tabindex="0" role="button" @click="isTemplateDropdownOpen = !isTemplateDropdownOpen" 
+                    class="flex items-center gap-2 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-400 hover:bg-white transition-all">
+                 <Palette class="w-3.5 h-3.5 text-indigo-600" />
+                 <span class="text-[10px] font-black uppercase tracking-widest text-slate-700">
+                   {{ templateOptions.find(o => o.id === store.selectedTemplate)?.label }}
+                 </span>
+                 <ChevronDown class="w-3.5 h-3.5 text-slate-400 transition-transform duration-300" :class="{ 'rotate-180': isTemplateDropdownOpen }" />
+               </div>
+                <ul tabindex="0" class="dropdown-content z-[100] menu p-2 shadow-2xl bg-white/90 backdrop-blur-xl border border-slate-100 rounded-[1.5rem] w-64 mt-2 animate-in fade-in zoom-in-95 duration-300">
+                 <li v-for="opt in templateOptions" :key="opt.id">
+                   <button @click="selectTemplate(opt)"
+                           :disabled="opt.premium && authStore.userPlan === 'Free'"
+                           :class="['flex flex-col items-start gap-1 p-3 rounded-xl mb-1 transition-all', 
+                           store.selectedTemplate === opt.id ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : (opt.premium && authStore.userPlan === 'Free' ? 'opacity-50 grayscale' : 'hover:bg-indigo-50 text-slate-700')]">
+                     <div class="flex items-center justify-between w-full">
+                       <div class="flex items-center gap-2">
+                         <span class="text-[10px] font-black uppercase tracking-widest">{{ opt.label }}</span>
+                         <div v-if="opt.premium" class="px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-600 text-[8px] font-black">PRO</div>
+                       </div>
+                       <Check v-if="store.selectedTemplate === opt.id" class="w-3 h-3 text-white" />
+                       <Lock v-if="opt.premium && authStore.userPlan === 'Free'" class="w-3 h-3 text-slate-400" />
+                     </div>
+                     <span :class="['text-[9px] font-medium opacity-60', store.selectedTemplate === opt.id ? 'text-indigo-100' : 'text-slate-500']">{{ opt.desc }}</span>
+                   </button>
+                 </li>
+                 <div v-if="authStore.userPlan === 'Free'" class="p-3 mt-1 border-t border-slate-100">
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mb-2">Upgrade for all templates</p>
+                    <button @click="$emit('switch-tab', 'settings')" class="w-full py-2 bg-indigo-50 text-indigo-600 rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-indigo-100 transition-colors">Go Premium</button>
+                 </div>
+               </ul>
+             </div>
+>>>>>>> 0b082d7c972923bd2155ae2885867de5f1c08364
           </div>
         </div>
 

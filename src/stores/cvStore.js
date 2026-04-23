@@ -16,35 +16,21 @@ export const useCvStore = defineStore('cv', () => {
     skills: [],
     experience: [],
     education: [],
+    projects: [],
+    certifications: [],
+    languages: [],
+    interests: [],
     keywords: [],
     matchScore: 0
   })
 
-  const selectedTemplate = ref('minimal') // minimal, professional, creative
+  const selectedTemplate = ref('minimal')
 
   const templates = ref([
-    // Free templates
-    { id: 'minimal', name: 'Modern Minimal', premium: false, color: '#1e293b', accent: '#6366f1', bg: '#f8fafc', layout: 'minimal' },
-    { id: 'professional', name: 'Enterprise Pro', premium: false, color: '#0f172a', accent: '#0ea5e9', bg: '#f0f9ff', layout: 'sidebar' },
-    { id: 'creative', name: 'Neo-Creative', premium: false, color: '#7c3aed', accent: '#ec4899', bg: '#fdf4ff', layout: 'bold' },
-    // Premium templates
-    { id: 't4', name: 'Executive Gold', premium: true, color: '#78350f', accent: '#d97706', bg: '#fffbeb', layout: 'split' },
-    { id: 't5', name: 'Clean Mint', premium: true, color: '#065f46', accent: '#10b981', bg: '#ecfdf5', layout: 'minimal' },
-    { id: 't6', name: 'Deep Maroon', premium: true, color: '#881337', accent: '#e11d48', bg: '#fff1f2', layout: 'sidebar' },
-    { id: 't7', name: 'Silicon Valley', premium: true, color: '#1d4ed8', accent: '#3b82f6', bg: '#eff6ff', layout: 'bold' },
-    { id: 't8', name: 'Oxford Classic', premium: true, color: '#1c1917', accent: '#78716c', bg: '#fafaf9', layout: 'split' },
-    { id: 't9', name: 'Design Portfolio', premium: true, color: '#0891b2', accent: '#22d3ee', bg: '#ecfeff', layout: 'bold' },
-    { id: 't10', name: 'Startup Vibe', premium: true, color: '#ea580c', accent: '#fb923c', bg: '#fff7ed', layout: 'minimal' },
-    { id: 't11', name: 'Corporate Elite', premium: true, color: '#1e3a5f', accent: '#2563eb', bg: '#f0f4ff', layout: 'sidebar' },
-    { id: 't12', name: 'Freelancer Bold', premium: true, color: '#4a044e', accent: '#a855f7', bg: '#faf5ff', layout: 'split' },
-    { id: 't13', name: 'Medical Pro', premium: true, color: '#0c4a6e', accent: '#0284c7', bg: '#f0f9ff', layout: 'minimal' },
-    { id: 't14', name: 'Legal Standard', premium: true, color: '#1a1a2e', accent: '#4f4e8f', bg: '#f5f5ff', layout: 'sidebar' },
-    { id: 't15', name: 'Academic Researcher', premium: true, color: '#14532d', accent: '#16a34a', bg: '#f0fdf4', layout: 'split' },
-    { id: 't16', name: 'Sales Closer', premium: true, color: '#7f1d1d', accent: '#dc2626', bg: '#fef2f2', layout: 'bold' },
-    { id: 't17', name: 'Engineering Draft', premium: true, color: '#0f2027', accent: '#64748b', bg: '#f1f5f9', layout: 'minimal' },
-    { id: 't18', name: 'Marketing Glow', premium: true, color: '#831843', accent: '#db2777', bg: '#fdf2f8', layout: 'split' },
-    { id: 't19', name: 'Cloud Specialist', premium: true, color: '#0c4a6e', accent: '#38bdf8', bg: '#e0f2fe', layout: 'sidebar' },
-    { id: 't20', name: 'Global Vision', premium: true, color: '#134e4a', accent: '#14b8a6', bg: '#f0fdfa', layout: 'bold' },
+    { id: 'minimal', name: 'Modern Split', premium: false, color: '#0f172a', accent: '#6366f1', bg: '#ffffff', layout: 'minimal' },
+    { id: 'professional', name: 'Enterprise Sidebar', premium: false, color: '#1e293b', accent: '#0ea5e9', bg: '#f8fafc', layout: 'sidebar' },
+    { id: 'creative', name: 'Neo-Glow', premium: false, color: '#4c1d95', accent: '#ec4899', bg: '#ffffff', layout: 'bold' },
+    { id: 't4', name: 'Executive Gold', premium: true, color: '#451a03', accent: '#d97706', bg: '#fffbeb', layout: 'split' },
   ])
 
   const cvs = ref([])
@@ -55,12 +41,36 @@ export const useCvStore = defineStore('cv', () => {
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY
 
     if (!apiKey) {
-      console.warn("OpenAI API Key not found. Falling back to mock data. Please add VITE_OPENAI_API_KEY to your .env file.")
-      // FALLBACK TO MOCK DATA (to keep UI working while user sets up key)
+      console.warn("OpenAI API Key not found. Falling back to mock data.")
       return new Promise((resolve) => {
         setTimeout(() => {
-          currentCV.value.matchScore = 85
-          currentCV.value.keywords = ['Vue.js', 'Tailwind', 'Frontend']
+          currentCV.value.summary = "Passionate and results-driven Frontend Developer with a strong foundation in modern web technologies. Passionate about building responsive, user-friendly applications and continuously improving performance and design quality. Quick learner with a problem-solving mindset."
+          
+          currentCV.value.experience = [
+            {
+              title: "Freelance Frontend Developer",
+              company: "Independent / Self-Employed",
+              date: "2024 – Present",
+              bullets: [
+                "Developed modern websites for small clients using React.js and Tailwind CSS.",
+                "Improved website responsiveness and performance by 30% through code optimization.",
+                "Collaborated with users to deliver customized solutions and interactive UI components.",
+                "Integrated RESTful APIs and ensured cross-browser compatibility across mobile and desktop."
+              ]
+            }
+          ]
+
+          currentCV.value.projects = [
+            { name: "Portfolio Website", description: "Designed and developed a personal portfolio website with responsive design." },
+            { name: "E-commerce Demo", description: "Built a dynamic online store interface with product filtering." },
+            { name: "CV Maker App", description: "Developed a resume-building web application with live preview." }
+          ]
+
+          currentCV.value.skills = ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'React.js', 'Git & GitHub', 'Responsive Web Design', 'UI/UX Basics', 'Debugging & Optimization']
+          currentCV.value.certifications = ['Certified Responsive Web Designer', 'JS Developer Associate']
+          currentCV.value.languages = ['Uzbek (Native)', 'English (Intermediate)', 'Russian (Basic)']
+          currentCV.value.interests = ['Web Development', 'Technology & Startups', 'UI/UX Design']
+          currentCV.value.matchScore = 98
           isGenerating.value = false
           resolve(true)
         }, 1500)
@@ -75,32 +85,26 @@ export const useCvStore = defineStore('cv', () => {
           'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: "gpt-4-turbo", // or "gpt-3.5-turbo"
+          model: "gpt-4-turbo",
           messages: [
             {
               role: "system",
-              content: `You are an expert AI Resume Tailor. Your goal is to optimize a user's CV to match a specific Job Description. 
+              content: `You are an Elite Executive Resume Writer. 
               Output MUST be a valid JSON object matching the following structure:
               {
-                "summary": "Optimized summary",
+                "summary": "Impactful executive summary...",
                 "experience": [ { "title": "...", "company": "...", "date": "...", "bullets": ["...", "..."] } ],
-                "skills": ["skill1", "skill2"],
-                "keywords": ["key1", "key2"],
-                "matchScore": 85
-              }
-              Keep the core facts of the user's experience but rewrite the language to use industry keywords and strong action verbs found in the job description. Do NOT invent fake experience.`
+                "projects": [ { "name": "...", "description": "...", "link": "..." } ],
+                "skills": ["Skill 1", "Skill 2"],
+                "certifications": ["Cert 1"],
+                "languages": ["Lang 1 (Level)"],
+                "interests": ["Interest 1"],
+                "matchScore": 95
+              }`
             },
             {
               role: "user",
-              content: `
-              JOB DESCRIPTION:
-              ${currentJobDescription.value}
-
-              USER CURRENT CV:
-              Summary: ${currentCV.value.summary}
-              Skills: ${currentCV.value.skills.join(', ')}
-              Experience: ${JSON.stringify(currentCV.value.experience)}
-              `
+              content: `Optimize this CV for the job. Current content: ${JSON.stringify(currentCV.value)}`
             }
           ],
           response_format: { type: "json_object" }
@@ -110,12 +114,13 @@ export const useCvStore = defineStore('cv', () => {
       const data = await response.json();
       if (data.choices && data.choices[0]) {
         const result = JSON.parse(data.choices[0].message.content);
-
-        // Update store with AI result
         currentCV.value.summary = result.summary;
         currentCV.value.experience = result.experience;
+        currentCV.value.projects = result.projects || [];
+        currentCV.value.certifications = result.certifications || [];
+        currentCV.value.languages = result.languages || [];
+        currentCV.value.interests = result.interests || [];
         currentCV.value.skills = result.skills;
-        currentCV.value.keywords = result.keywords;
         currentCV.value.matchScore = result.matchScore;
       }
     } catch (error) {

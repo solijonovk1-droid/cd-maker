@@ -12,94 +12,130 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
 <template>
   <div class="w-[210mm] min-h-[297mm] shadow-2xl transition-all duration-300 cv-document" :style="{ backgroundColor: tpl.bg }">
     
-    <!-- MINIMAL LAYOUT -->
-    <div v-if="tpl.layout === 'minimal'" class="text-slate-800 font-sans h-full">
+    <!-- MINIMAL LAYOUT (Professional Refactor) -->
+    <div v-if="tpl.layout === 'minimal'" class="text-slate-800 font-sans h-full bg-white">
       <header :style="{ backgroundColor: tpl.color }" class="text-white p-12 flex justify-between items-center relative overflow-hidden">
         <div class="flex items-center gap-8 relative z-10">
-          <div class="w-32 h-32 rounded-full border-4 overflow-hidden bg-slate-200" :style="{ borderColor: tpl.accent }">
-             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="Avatar" class="w-full h-full object-cover" />
+          <div class="w-32 h-32 rounded-3xl border-4 overflow-hidden bg-slate-200 rotate-3 shadow-2xl" :style="{ borderColor: tpl.accent }">
+             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kamron" alt="Avatar" class="w-full h-full object-cover -rotate-3" />
           </div>
           <div>
-            <h1 class="text-5xl font-black tracking-tight mb-1">{{ cv.personalInfo.fullName }}</h1>
-            <p :style="{ color: tpl.accent }" class="text-lg font-bold uppercase tracking-widest">Job Category</p>
+            <h1 class="text-5xl font-black tracking-tight mb-1 uppercase">{{ cv.personalInfo.fullName }}</h1>
+            <p :style="{ color: tpl.accent }" class="text-lg font-bold uppercase tracking-[0.3em]">Professional Resume</p>
           </div>
         </div>
         
-        <div class="text-right space-y-2 relative z-10">
-          <div class="flex items-center justify-end gap-3 transition-all hover:translate-x-[-4px]">
-            <span class="text-sm font-medium">{{ cv.personalInfo.phone }}</span>
-            <div class="w-8 h-8 rounded-full flex items-center justify-center" :style="{ backgroundColor: tpl.accent, color: tpl.color }">
-              <Phone class="w-4 h-4" />
-            </div>
-          </div>
-          <div class="flex items-center justify-end gap-3 transition-all hover:translate-x-[-4px]">
-            <span class="text-sm font-medium">{{ cv.personalInfo.email }}</span>
-            <div class="w-8 h-8 rounded-full flex items-center justify-center" :style="{ backgroundColor: tpl.accent, color: tpl.color }">
-              <Mail class="w-4 h-4" />
-            </div>
-          </div>
-          <div class="flex items-center justify-end gap-3 transition-all hover:translate-x-[-4px]">
-            <span class="text-sm font-medium">{{ cv.personalInfo.location }}</span>
-            <div class="w-8 h-8 rounded-full flex items-center justify-center" :style="{ backgroundColor: tpl.accent, color: tpl.color }">
-              <MapPin class="w-4 h-4" />
-            </div>
-          </div>
+        <div class="text-right space-y-2 relative z-10 font-bold">
+          <div class="flex items-center justify-end gap-3"><span class="text-xs">{{ cv.personalInfo.phone }}</span><Phone class="w-4 h-4" :style="{ color: tpl.accent }" /></div>
+          <div class="flex items-center justify-end gap-3"><span class="text-xs">{{ cv.personalInfo.email }}</span><Mail class="w-4 h-4" :style="{ color: tpl.accent }" /></div>
+          <div class="flex items-center justify-end gap-3"><span class="text-xs">{{ cv.personalInfo.location }}</span><MapPin class="w-4 h-4" :style="{ color: tpl.accent }" /></div>
         </div>
       </header>
 
-      <div class="p-12 grid grid-cols-2 gap-x-16 gap-y-12">
+      <div class="p-12 space-y-12">
+        <!-- Executive Summary (Full Width) -->
         <section>
           <div class="flex items-center gap-3 mb-4 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" :style="{ backgroundColor: tpl.accent, color: tpl.color }">
-              <Briefcase class="w-6 h-6" />
-            </div>
-            <h2 class="text-xl font-black uppercase tracking-tighter" :style="{ color: tpl.color }">Career Objective</h2>
+            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Professional Summary</h2>
           </div>
-          <p class="text-sm leading-relaxed text-slate-600 font-medium italic">"{{ cv.summary }}"</p>
+          <p class="text-sm leading-relaxed text-slate-600 font-medium italic border-l-4 pl-4 py-1" :style="{ borderColor: tpl.accent }">{{ cv.summary }}</p>
         </section>
 
-        <section>
-          <div class="flex items-center gap-3 mb-4 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" :style="{ backgroundColor: tpl.accent, color: tpl.color }">
-              <Trophy class="w-6 h-6" />
-            </div>
-            <h2 class="text-xl font-black uppercase tracking-tighter" :style="{ color: tpl.color }">Key Skills</h2>
-          </div>
-          <div class="flex flex-wrap gap-2 text-sm text-slate-700">
-            <span v-for="(skill, idx) in cv.skills" :key="idx" class="px-3 py-1 bg-white rounded-lg font-bold border border-slate-200 shadow-sm" :style="{ color: tpl.color }">{{ skill }}</span>
-          </div>
-        </section>
-
+        <!-- Experience (Full Width) -->
         <section>
           <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" :style="{ backgroundColor: tpl.accent, color: tpl.color }">
-              <Award class="w-6 h-6" />
-            </div>
-            <h2 class="text-xl font-black uppercase tracking-tighter" :style="{ color: tpl.color }">Work Experience</h2>
+            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Work Experience</h2>
           </div>
-          <div v-for="(exp, idx) in cv.experience" :key="idx" class="mb-8 last:mb-0 relative pl-4 border-l border-slate-200">
-            <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full" :style="{ backgroundColor: tpl.accent }"></div>
-            <h3 class="text-lg font-black" :style="{ color: tpl.color }">{{ exp.title }}</h3>
-            <p class="text-xs font-bold uppercase mb-2" :style="{ color: tpl.accent }">{{ exp.company }} | {{ exp.date }}</p>
-            <ul class="space-y-1.5">
-              <li v-for="(bullet, bIdx) in exp.bullets" :key="bIdx" class="text-xs text-slate-600 font-medium leading-relaxed">• {{ bullet }}</li>
+          <div v-for="(exp, idx) in cv.experience" :key="idx" class="mb-10 last:mb-0">
+            <div class="flex justify-between items-end mb-3">
+              <div>
+                <h3 class="text-2xl font-black" :style="{ color: tpl.color }">{{ exp.title }}</h3>
+                <p class="text-sm font-bold uppercase" :style="{ color: tpl.accent }">{{ exp.company }}</p>
+              </div>
+              <span class="text-xs font-black bg-slate-100 px-3 py-1 rounded-full text-slate-500 uppercase tracking-widest">{{ exp.date }}</span>
+            </div>
+            <!-- Auto-columns for long lists -->
+            <ul :class="['space-y-2 text-slate-600 font-medium', exp.bullets?.length > 4 ? 'columns-2 gap-8' : '']">
+              <li v-for="(bullet, bIdx) in exp.bullets" :key="bIdx" class="text-xs leading-relaxed flex gap-2 break-inside-avoid">
+                <span :style="{ color: tpl.accent }">🔷</span> {{ bullet }}
+              </li>
             </ul>
           </div>
         </section>
 
-        <section>
-          <div class="flex items-center gap-3 mb-4 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" :style="{ backgroundColor: tpl.accent, color: tpl.color }">
-              <GraduationCap class="w-6 h-6" />
-            </div>
-            <h2 class="text-xl font-black uppercase tracking-tighter" :style="{ color: tpl.color }">Education</h2>
+        <!-- Projects (Full Width) -->
+        <section v-if="cv.projects && cv.projects.length">
+          <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Key Projects</h2>
           </div>
-          <div v-for="(edu, idx) in cv.education" :key="idx" class="mb-4">
-            <h3 class="text-sm font-black text-slate-800">{{ edu.degree }}</h3>
-            <p class="text-[11px] font-bold uppercase" :style="{ color: tpl.accent }">{{ edu.school }}</p>
-            <p class="text-[11px] text-slate-500 font-medium">{{ edu.date }}</p>
+          <div class="grid grid-cols-2 gap-8">
+            <div v-for="(project, idx) in cv.projects" :key="idx" class="group p-6 bg-slate-50 rounded-[2rem] border border-slate-100 hover:shadow-xl transition-all">
+              <h3 class="text-lg font-black text-slate-800 flex items-center justify-between">
+                {{ project.name }}
+                <a v-if="project.link" :href="project.link" target="_blank" class="text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity"><ExternalLink class="w-4 h-4" /></a>
+              </h3>
+              <p class="text-xs text-slate-500 font-medium leading-relaxed mt-2">{{ project.description }}</p>
+            </div>
           </div>
         </section>
+
+        <!-- Two Column Footer Sections -->
+        <div class="grid grid-cols-2 gap-16">
+          <section>
+            <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+              <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Technical Skills</h2>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span v-for="skill in cv.skills" :key="skill" class="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm hover:border-indigo-400 transition-colors">{{ skill }}</span>
+            </div>
+          </section>
+
+          <div class="space-y-12">
+            <section>
+              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Education</h2>
+              </div>
+              <div v-for="edu in cv.education" :key="edu.degree" class="mb-4 last:mb-0">
+                <h3 class="text-sm font-black text-slate-800 uppercase">{{ edu.degree }}</h3>
+                <p class="text-[10px] font-bold" :style="{ color: tpl.accent }">{{ edu.school }}</p>
+                <p class="text-[10px] text-slate-400 font-bold">{{ edu.date }}</p>
+              </div>
+            </section>
+
+            <section v-if="cv.certifications && cv.certifications.length">
+              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Certifications</h2>
+              </div>
+              <ul class="space-y-3">
+                <li v-for="cert in cv.certifications" :key="cert" class="text-xs text-slate-700 font-bold flex items-center gap-3">
+                  <Award class="w-4 h-4 shrink-0" :style="{ color: tpl.accent }" />
+                  {{ cert }}
+                </li>
+              </ul>
+            </section>
+
+            <section v-if="cv.languages && cv.languages.length">
+              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Languages</h2>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <div v-for="lang in cv.languages" :key="lang" class="flex flex-col gap-1">
+                  <span class="text-xs font-black text-slate-800">{{ lang.split('(')[0] }}</span>
+                  <span v-if="lang.includes('(')" class="text-[9px] font-bold text-slate-400 uppercase">{{ lang.split('(')[1].replace(')', '') }}</span>
+                </div>
+              </div>
+            </section>
+
+            <section v-if="cv.interests && cv.interests.length">
+              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Interests</h2>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span v-for="interest in cv.interests" :key="interest" class="px-3 py-1 bg-slate-50 rounded-lg text-[10px] font-bold text-slate-600 border border-slate-100">{{ interest }}</span>
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
     </div>
 

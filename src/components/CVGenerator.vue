@@ -344,28 +344,39 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 @media print {
-  body * { visibility: hidden; }
+  @page {
+    margin: 0;
+    size: A4;
+  }
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    background: white !important;
+  }
+  body * {
+    visibility: hidden !important;
+  }
   .cv-print-container, .cv-print-container * {
     visibility: visible !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
   .cv-print-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 210mm; /* A4 width */
-    height: 297mm; /* A4 height */
-    margin: 0;
-    padding: 0;
-    background: white !important;
+    visibility: visible !important;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 210mm !important;
+    /* Remove height to allow content to flow if needed, or keep for single page */
+    min-height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
     transform: none !important;
     box-shadow: none !important;
     border: none !important;
-  }
-  @page {
-    margin: 0;
-    size: A4;
+    z-index: 9999 !important;
+    background: white !important;
   }
 }
 </style>

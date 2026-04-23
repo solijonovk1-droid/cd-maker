@@ -246,9 +246,17 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
 
     <!-- SPLIT LAYOUT -->
     <div v-if="tpl.layout === 'split'" class="flex flex-col h-full min-h-[297mm] text-slate-800 font-sans">
-      <header class="p-16 text-center text-white relative overflow-hidden" :style="{ backgroundColor: tpl.color }">
-        <h1 class="text-6xl font-black tracking-tighter mb-4 relative z-10">{{ cv.personalInfo.fullName }}</h1>
-        <p class="text-xl font-bold uppercase tracking-widest relative z-10" :style="{ color: tpl.accent }">Professional CV</p>
+      <header class="p-16 flex items-center justify-between text-white relative overflow-hidden" :style="{ backgroundColor: tpl.color }">
+        <div class="flex items-center gap-10 relative z-10">
+           <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 shadow-2xl" :style="{ borderColor: tpl.accent }">
+              <img :src="cv.personalInfo.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + cv.personalInfo.fullName" alt="Avatar" class="w-full h-full object-cover" />
+           </div>
+           <div>
+              <h1 class="text-6xl font-black tracking-tighter mb-2">{{ cv.personalInfo.fullName }}</h1>
+              <p class="text-xl font-bold uppercase tracking-[0.4em]" :style="{ color: tpl.accent }">Executive CV</p>
+           </div>
+        </div>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
       </header>
       <div class="flex flex-1">
         <div class="w-[40%] p-10 space-y-12 bg-white/70 backdrop-blur-sm shadow-xl relative z-20">

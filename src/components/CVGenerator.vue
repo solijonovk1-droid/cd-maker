@@ -41,6 +41,7 @@ const tabs = [
   { id: 'experience', icon: Briefcase,      label: 'Work' },
   { id: 'skills',     icon: Check,          label: 'Skills' },
   { id: 'education',  icon: GraduationCap,  label: 'Academic' },
+  { id: 'labels',     icon: MessageSquare,  label: 'Labels' },
 ]
 
 const handleGenerate = async () => {
@@ -325,6 +326,18 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
                        <div class="form-control">
                           <label class="label p-0 mb-1.5"><span class="label-text text-[9px] font-black uppercase tracking-widest text-slate-400">School</span></label>
                           <input v-model="edu.school" type="text" class="input input-bordered w-full rounded-xl" />
+                       </div>
+                    </div>
+                 </div>
+
+                 <div v-if="activeTab === 'labels'" class="space-y-6 animate-in fade-in duration-500">
+                    <div class="bg-indigo-50/50 p-6 rounded-3xl border border-indigo-100/50 mb-4">
+                       <p class="text-[10px] text-indigo-900/60 font-medium leading-relaxed uppercase tracking-widest">Customize section headings to match your preference or language.</p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4">
+                       <div v-for="(val, key) in store.currentCV.labels" :key="key" class="form-control">
+                          <label class="label p-0 mb-1.5"><span class="label-text text-[9px] font-black uppercase tracking-widest text-slate-400">{{ key }}</span></label>
+                          <input v-model="store.currentCV.labels[key]" type="text" class="input input-bordered w-full rounded-xl bg-slate-50 font-bold" />
                        </div>
                     </div>
                  </div>

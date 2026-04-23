@@ -22,7 +22,17 @@ export const useCvStore = defineStore('cv', () => {
     languages: [],
     interests: [],
     keywords: [],
-    matchScore: 0
+    matchScore: 0,
+    labels: {
+      summary: 'Professional Summary',
+      experience: 'Work Experience',
+      skills: 'Technical Skills',
+      education: 'Education',
+      projects: 'Key Projects',
+      certifications: 'Certifications',
+      languages: 'Languages',
+      interests: 'Interests'
+    }
   })
 
   const tailoringOptions = ref({

@@ -36,7 +36,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
         <!-- Executive Summary (Full Width) -->
         <section>
           <div class="flex items-center gap-3 mb-4 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Professional Summary</h2>
+            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.summary || 'Professional Summary' }}</h2>
           </div>
           <p class="text-sm leading-relaxed text-slate-600 font-medium italic border-l-4 pl-4 py-1" :style="{ borderColor: tpl.accent }">{{ cv.summary }}</p>
         </section>
@@ -44,7 +44,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
         <!-- Experience (Full Width) -->
         <section>
           <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Work Experience</h2>
+            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.experience || 'Work Experience' }}</h2>
           </div>
           <div v-for="(exp, idx) in cv.experience" :key="idx" class="mb-10 last:mb-0">
             <div class="flex justify-between items-end mb-3">
@@ -66,7 +66,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
         <!-- Projects (Full Width) -->
         <section v-if="cv.projects && cv.projects.length">
           <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Key Projects</h2>
+            <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.projects || 'Key Projects' }}</h2>
           </div>
           <div class="grid grid-cols-2 gap-8">
             <div v-for="(project, idx) in cv.projects" :key="idx" class="group p-6 bg-slate-50 rounded-[2rem] border border-slate-100 hover:shadow-xl transition-all">
@@ -83,7 +83,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
         <div class="grid grid-cols-2 gap-16">
           <section>
             <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-              <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Technical Skills</h2>
+              <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.skills || 'Technical Skills' }}</h2>
             </div>
             <div class="flex flex-wrap gap-2">
               <span v-for="skill in cv.skills" :key="skill" class="px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm hover:border-indigo-400 transition-colors">{{ skill }}</span>
@@ -93,7 +93,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
           <div class="space-y-12">
             <section>
               <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Education</h2>
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.education || 'Education' }}</h2>
               </div>
               <div v-for="edu in cv.education" :key="edu.degree" class="mb-4 last:mb-0">
                 <h3 class="text-sm font-black text-slate-800 uppercase">{{ edu.degree }}</h3>

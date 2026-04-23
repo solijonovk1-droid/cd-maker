@@ -6,29 +6,16 @@ export const useCvStore = defineStore('cv', () => {
   const isGenerating = ref(false)
   const currentCV = ref({
     personalInfo: {
-      fullName: 'John Doe',
-      email: 'john@example.com',
-      phone: '+1 234 567 890',
-      location: 'New York, US',
-      linkedin: 'linkedin.com/in/johndoe'
+      fullName: '',
+      email: '',
+      phone: '',
+      location: '',
+      linkedin: ''
     },
-    summary: 'A passionate developer looking for new opportunities...',
-    skills: ['JavaScript', 'Vue.js', 'Tailwind CSS'],
-    experience: [
-      {
-        title: 'Frontend Developer',
-        company: 'Tech Corp',
-        date: '2020 - Present',
-        bullets: ['Developed modern web apps', 'Optimized performance resulting in 40% faster load times']
-      }
-    ],
-    education: [
-      {
-        degree: 'BSc in Computer Science',
-        school: 'University of Technology',
-        date: '2016 - 2020'
-      }
-    ],
+    summary: '',
+    skills: [],
+    experience: [],
+    education: [],
     keywords: [],
     matchScore: 0
   })
@@ -37,58 +24,36 @@ export const useCvStore = defineStore('cv', () => {
 
   const templates = ref([
     // Free templates
-    { id: 'minimal',       name: 'Modern Minimal',      premium: false, color: '#1e293b', accent: '#6366f1', bg: '#f8fafc', layout: 'minimal' },
-    { id: 'professional',  name: 'Enterprise Pro',       premium: false, color: '#0f172a', accent: '#0ea5e9', bg: '#f0f9ff', layout: 'sidebar' },
-    { id: 'creative',      name: 'Neo-Creative',         premium: false, color: '#7c3aed', accent: '#ec4899', bg: '#fdf4ff', layout: 'bold' },
+    { id: 'minimal', name: 'Modern Minimal', premium: false, color: '#1e293b', accent: '#6366f1', bg: '#f8fafc', layout: 'minimal' },
+    { id: 'professional', name: 'Enterprise Pro', premium: false, color: '#0f172a', accent: '#0ea5e9', bg: '#f0f9ff', layout: 'sidebar' },
+    { id: 'creative', name: 'Neo-Creative', premium: false, color: '#7c3aed', accent: '#ec4899', bg: '#fdf4ff', layout: 'bold' },
     // Premium templates
-    { id: 't4',  name: 'Executive Gold',       premium: true,  color: '#78350f', accent: '#d97706', bg: '#fffbeb', layout: 'split' },
-    { id: 't5',  name: 'Clean Mint',           premium: true,  color: '#065f46', accent: '#10b981', bg: '#ecfdf5', layout: 'minimal' },
-    { id: 't6',  name: 'Deep Maroon',          premium: true,  color: '#881337', accent: '#e11d48', bg: '#fff1f2', layout: 'sidebar' },
-    { id: 't7',  name: 'Silicon Valley',       premium: true,  color: '#1d4ed8', accent: '#3b82f6', bg: '#eff6ff', layout: 'bold' },
-    { id: 't8',  name: 'Oxford Classic',       premium: true,  color: '#1c1917', accent: '#78716c', bg: '#fafaf9', layout: 'split' },
-    { id: 't9',  name: 'Design Portfolio',     premium: true,  color: '#0891b2', accent: '#22d3ee', bg: '#ecfeff', layout: 'bold' },
-    { id: 't10', name: 'Startup Vibe',         premium: true,  color: '#ea580c', accent: '#fb923c', bg: '#fff7ed', layout: 'minimal' },
-    { id: 't11', name: 'Corporate Elite',      premium: true,  color: '#1e3a5f', accent: '#2563eb', bg: '#f0f4ff', layout: 'sidebar' },
-    { id: 't12', name: 'Freelancer Bold',      premium: true,  color: '#4a044e', accent: '#a855f7', bg: '#faf5ff', layout: 'split' },
-    { id: 't13', name: 'Medical Pro',          premium: true,  color: '#0c4a6e', accent: '#0284c7', bg: '#f0f9ff', layout: 'minimal' },
-    { id: 't14', name: 'Legal Standard',       premium: true,  color: '#1a1a2e', accent: '#4f4e8f', bg: '#f5f5ff', layout: 'sidebar' },
-    { id: 't15', name: 'Academic Researcher',  premium: true,  color: '#14532d', accent: '#16a34a', bg: '#f0fdf4', layout: 'split' },
-    { id: 't16', name: 'Sales Closer',         premium: true,  color: '#7f1d1d', accent: '#dc2626', bg: '#fef2f2', layout: 'bold' },
-    { id: 't17', name: 'Engineering Draft',    premium: true,  color: '#0f2027', accent: '#64748b', bg: '#f1f5f9', layout: 'minimal' },
-    { id: 't18', name: 'Marketing Glow',       premium: true,  color: '#831843', accent: '#db2777', bg: '#fdf2f8', layout: 'split' },
-    { id: 't19', name: 'Cloud Specialist',     premium: true,  color: '#0c4a6e', accent: '#38bdf8', bg: '#e0f2fe', layout: 'sidebar' },
-    { id: 't20', name: 'Global Vision',        premium: true,  color: '#134e4a', accent: '#14b8a6', bg: '#f0fdfa', layout: 'bold' },
+    { id: 't4', name: 'Executive Gold', premium: true, color: '#78350f', accent: '#d97706', bg: '#fffbeb', layout: 'split' },
+    { id: 't5', name: 'Clean Mint', premium: true, color: '#065f46', accent: '#10b981', bg: '#ecfdf5', layout: 'minimal' },
+    { id: 't6', name: 'Deep Maroon', premium: true, color: '#881337', accent: '#e11d48', bg: '#fff1f2', layout: 'sidebar' },
+    { id: 't7', name: 'Silicon Valley', premium: true, color: '#1d4ed8', accent: '#3b82f6', bg: '#eff6ff', layout: 'bold' },
+    { id: 't8', name: 'Oxford Classic', premium: true, color: '#1c1917', accent: '#78716c', bg: '#fafaf9', layout: 'split' },
+    { id: 't9', name: 'Design Portfolio', premium: true, color: '#0891b2', accent: '#22d3ee', bg: '#ecfeff', layout: 'bold' },
+    { id: 't10', name: 'Startup Vibe', premium: true, color: '#ea580c', accent: '#fb923c', bg: '#fff7ed', layout: 'minimal' },
+    { id: 't11', name: 'Corporate Elite', premium: true, color: '#1e3a5f', accent: '#2563eb', bg: '#f0f4ff', layout: 'sidebar' },
+    { id: 't12', name: 'Freelancer Bold', premium: true, color: '#4a044e', accent: '#a855f7', bg: '#faf5ff', layout: 'split' },
+    { id: 't13', name: 'Medical Pro', premium: true, color: '#0c4a6e', accent: '#0284c7', bg: '#f0f9ff', layout: 'minimal' },
+    { id: 't14', name: 'Legal Standard', premium: true, color: '#1a1a2e', accent: '#4f4e8f', bg: '#f5f5ff', layout: 'sidebar' },
+    { id: 't15', name: 'Academic Researcher', premium: true, color: '#14532d', accent: '#16a34a', bg: '#f0fdf4', layout: 'split' },
+    { id: 't16', name: 'Sales Closer', premium: true, color: '#7f1d1d', accent: '#dc2626', bg: '#fef2f2', layout: 'bold' },
+    { id: 't17', name: 'Engineering Draft', premium: true, color: '#0f2027', accent: '#64748b', bg: '#f1f5f9', layout: 'minimal' },
+    { id: 't18', name: 'Marketing Glow', premium: true, color: '#831843', accent: '#db2777', bg: '#fdf2f8', layout: 'split' },
+    { id: 't19', name: 'Cloud Specialist', premium: true, color: '#0c4a6e', accent: '#38bdf8', bg: '#e0f2fe', layout: 'sidebar' },
+    { id: 't20', name: 'Global Vision', premium: true, color: '#134e4a', accent: '#14b8a6', bg: '#f0fdfa', layout: 'bold' },
   ])
 
-  const cvs = ref([
-    {
-      id: 1,
-      title: 'Senior Frontend Engineer - Google',
-      status: 'Ready',
-      lastModified: '2 hours ago',
-      template: 'Minimal'
-    },
-    {
-      id: 2,
-      title: 'Full Stack Developer - Amazon',
-      status: 'Draft',
-      lastModified: 'Yesterday',
-      template: 'Professional'
-    },
-    {
-      id: 3,
-      title: 'Product Designer - Meta',
-      status: 'Optimized',
-      lastModified: '3 days ago',
-      template: 'Creative'
-    }
-  ])
+  const cvs = ref([])
 
   const generateCV = async () => {
     isGenerating.value = true
-    
+
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY
-    
+
     if (!apiKey) {
       console.warn("OpenAI API Key not found. Falling back to mock data. Please add VITE_OPENAI_API_KEY to your .env file.")
       // FALLBACK TO MOCK DATA (to keep UI working while user sets up key)
@@ -145,7 +110,7 @@ export const useCvStore = defineStore('cv', () => {
       const data = await response.json();
       if (data.choices && data.choices[0]) {
         const result = JSON.parse(data.choices[0].message.content);
-        
+
         // Update store with AI result
         currentCV.value.summary = result.summary;
         currentCV.value.experience = result.experience;
@@ -164,14 +129,49 @@ export const useCvStore = defineStore('cv', () => {
     if (!user) return
     currentCV.value.personalInfo.fullName = user.user_metadata?.full_name || user.email.split('@')[0]
     currentCV.value.personalInfo.email = user.email
-    
+
     // Set default phone and location if empty
     if (!currentCV.value.personalInfo.phone || currentCV.value.personalInfo.phone === '+1 234 567 890') {
-       currentCV.value.personalInfo.phone = '+998 90 123 45 67'
+      currentCV.value.personalInfo.phone = '+998 90 123 45 67'
     }
     if (!currentCV.value.personalInfo.location || currentCV.value.personalInfo.location === 'New York, US') {
-       currentCV.value.personalInfo.location = 'Tashkent, Uzbekistan'
+      currentCV.value.personalInfo.location = 'Tashkent, Uzbekistan'
     }
+  }
+
+  const saveCV = () => {
+    const newId = cvs.value.length > 0 ? Math.max(...cvs.value.map(c => c.id)) + 1 : 1
+    const title = currentCV.value.experience?.[0]?.title 
+      ? `${currentCV.value.experience[0].title} - ${currentCV.value.experience[0].company || 'Resume'}`
+      : `New Resume ${newId}`
+      
+    cvs.value.unshift({
+      id: newId,
+      title: title,
+      status: currentCV.value.matchScore > 80 ? 'Optimized' : 'Ready',
+      lastModified: 'Just now',
+      template: templates.value.find(t => t.id === selectedTemplate.value)?.name || 'Minimal',
+      data: JSON.parse(JSON.stringify(currentCV.value)) // Save snapshot
+    })
+  }
+
+  const clearCurrentCV = () => {
+    currentCV.value = {
+      personalInfo: {
+        fullName: '',
+        email: '',
+        phone: '',
+        location: '',
+        linkedin: ''
+      },
+      summary: '',
+      skills: [],
+      experience: [],
+      education: [],
+      keywords: [],
+      matchScore: 0
+    }
+    currentJobDescription.value = ''
   }
 
   return {
@@ -182,6 +182,8 @@ export const useCvStore = defineStore('cv', () => {
     templates,
     cvs,
     generateCV,
+    saveCV,
+    clearCurrentCV,
     syncWithUser
   }
 })

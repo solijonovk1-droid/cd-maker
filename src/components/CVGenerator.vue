@@ -34,14 +34,20 @@ const tabs = [
 const handleGenerate = async () => {
   if (!store.currentJobDescription) return
   await store.generateCV()
-  // stay on AI tab for a moment to show results, then maybe switch
+}
+
+const emit = defineEmits(['switch-tab'])
+
+const handleSave = () => {
+  store.saveCV()
+  emit('switch-tab', 'cvs')
 }
 
 const printCV = () => window.print()
 
-// Word counter
-const wordCount = computed(() => {
-  return store.currentJobDescription ? store.currentJobDescription.trim().split(/\s+/).length : 0
+// Character counter
+const charCount = computed(() => {
+  return store.currentJobDescription ? store.currentJobDescription.length : 0
 })
 
 const pasteExample = () => {
@@ -138,7 +144,7 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
                 </div>
                 <div class="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
                    <FileText class="w-3 h-3" />
-                   {{ wordCount }} Words
+                   {{ charCount }} Characters
                 </div>
               </div>
 
@@ -154,17 +160,15 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
               </div>
 
               <!-- Generate Button -->
-              <div class="relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse"></div>
+              <div class="relative group mt-2 pt-2">
                 <button
                   @click="handleGenerate"
                   :disabled="store.isGenerating || !store.currentJobDescription"
-                  class="relative w-full py-5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-black uppercase text-sm tracking-widest shadow-2xl flex items-center justify-center gap-3 active:scale-[0.98] transition-all overflow-hidden group-hover:scale-[1.02]"
+                  class="w-full py-5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-black uppercase text-sm tracking-widest shadow-xl shadow-indigo-200 flex items-center justify-center gap-3 transition-all"
                 >
-                  <div class="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                   <Loader2 v-if="store.isGenerating" class="w-5 h-5 animate-spin" />
                   <template v-else>
-                    <Sparkles class="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                    <Sparkles class="w-5 h-5" />
                     <span>Generate AI CV</span>
                   </template>
                 </button>
@@ -360,6 +364,9 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
         </div>
 
         <div class="flex items-center gap-3">
+           <button @click="handleSave" class="btn btn-ghost btn-sm rounded-xl text-emerald-600 hover:bg-emerald-50 gap-2 font-black uppercase text-[10px] tracking-widest">
+              <Check class="w-4 h-4" /> Save to Library
+           </button>
            <button class="btn btn-ghost btn-sm rounded-xl text-slate-500 hover:text-slate-800">
               <Maximize2 class="w-4 h-4" />
            </button>

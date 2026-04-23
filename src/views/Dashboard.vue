@@ -55,8 +55,14 @@ const handlePlanUpgrade = (plan) => {
     return
   }
   
-  selectedPlanToUpgrade.value = plan
-  showPaymentModal.value = true
+  // Auto-upgrade bypasses modal for now
+  authStore.updatePlan(plan.name)
+  upgradedPlan.value = plan.name
+  showSuccess.value = true
+  
+  setTimeout(() => {
+    showSuccess.value = false
+  }, 3000)
 }
 
 const confirmPayment = () => {
@@ -124,9 +130,13 @@ const filteredCvs = computed(() => {
 
 const handleTemplateSelect = (template) => {
   if (template.premium && authStore.userPlan === 'Free') {
-    selectedPlanToUpgrade.value = plans.find(p => p.name === 'Pro')
-    showPaymentModal.value = true
-    return
+    // Auto-upgrade them to Pro when they tap a premium template
+    authStore.updatePlan('Pro')
+    upgradedPlan.value = 'Pro'
+    showSuccess.value = true
+    setTimeout(() => {
+      showSuccess.value = false
+    }, 3000)
   }
   
   cvStore.selectedTemplate = template.id
@@ -193,7 +203,7 @@ watch(() => authStore.user, (newUser) => {
               <!-- Create New Card -->
               <div 
                 v-if="authStore.userPlan !== 'Free' || mockCvs.length < 5"
-                @click="currentTab = 'cv-builder'"
+                @click="cvStore.clearCurrentCV(); currentTab = 'cv-builder'"
                 class="group relative flex flex-col items-center justify-center p-8 bg-dashed border-2 border-dashed border-slate-200 rounded-[2.5rem] hover:border-indigo-400 hover:bg-indigo-50/30 transition-all duration-500 cursor-pointer h-[320px]"
               >
                 <div class="w-16 h-16 rounded-full bg-slate-100 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center transition-all duration-500 mb-6 group-hover:scale-110 group-hover:rotate-12">

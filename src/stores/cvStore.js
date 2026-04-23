@@ -24,6 +24,12 @@ export const useCvStore = defineStore('cv', () => {
     matchScore: 0
   })
 
+  const tailoringOptions = ref({
+    level: 'Mid-level',
+    tone: 'Professional',
+    language: 'English'
+  })
+
   const selectedTemplate = ref('minimal')
 
   const templates = ref([
@@ -37,7 +43,6 @@ export const useCvStore = defineStore('cv', () => {
 
   const generateCV = async () => {
     isGenerating.value = true
-
     const apiKey = import.meta.env.VITE_OPENAI_API_KEY
 
     if (!apiKey) {
@@ -45,7 +50,6 @@ export const useCvStore = defineStore('cv', () => {
       return new Promise((resolve) => {
         setTimeout(() => {
           currentCV.value.summary = "Passionate and results-driven Frontend Developer with a strong foundation in modern web technologies. Passionate about building responsive, user-friendly applications and continuously improving performance and design quality. Quick learner with a problem-solving mindset."
-          
           currentCV.value.experience = [
             {
               title: "Freelance Frontend Developer",
@@ -59,13 +63,11 @@ export const useCvStore = defineStore('cv', () => {
               ]
             }
           ]
-
           currentCV.value.projects = [
             { name: "Portfolio Website", description: "Designed and developed a personal portfolio website with responsive design." },
             { name: "E-commerce Demo", description: "Built a dynamic online store interface with product filtering." },
             { name: "CV Maker App", description: "Developed a resume-building web application with live preview." }
           ]
-
           currentCV.value.skills = ['HTML5', 'CSS3', 'JavaScript (ES6+)', 'React.js', 'Git & GitHub', 'Responsive Web Design', 'UI/UX Basics', 'Debugging & Optimization']
           currentCV.value.certifications = ['Certified Responsive Web Designer', 'JS Developer Associate']
           currentCV.value.languages = ['Uzbek (Native)', 'English (Intermediate)', 'Russian (Basic)']
@@ -90,9 +92,13 @@ export const useCvStore = defineStore('cv', () => {
             {
               role: "system",
               content: `You are an Elite Executive Resume Writer. 
+              TONE: ${tailoringOptions.value.tone}
+              TARGET LEVEL: ${tailoringOptions.value.level}
+              OUTPUT LANGUAGE: ${tailoringOptions.value.language}
+
               Output MUST be a valid JSON object matching the following structure:
               {
-                "summary": "Impactful executive summary...",
+                "summary": "Impactful summary in ${tailoringOptions.value.language}...",
                 "experience": [ { "title": "...", "company": "...", "date": "...", "bullets": ["...", "..."] } ],
                 "projects": [ { "name": "...", "description": "...", "link": "..." } ],
                 "skills": ["Skill 1", "Skill 2"],
@@ -100,7 +106,8 @@ export const useCvStore = defineStore('cv', () => {
                 "languages": ["Lang 1 (Level)"],
                 "interests": ["Interest 1"],
                 "matchScore": 95
-              }`
+              }
+              Translate ALL content to ${tailoringOptions.value.language}.`
             },
             {
               role: "user",
@@ -134,8 +141,6 @@ export const useCvStore = defineStore('cv', () => {
     if (!user) return
     currentCV.value.personalInfo.fullName = user.user_metadata?.full_name || user.email.split('@')[0]
     currentCV.value.personalInfo.email = user.email
-
-    // Set default phone and location if empty
     if (!currentCV.value.personalInfo.phone || currentCV.value.personalInfo.phone === '+1 234 567 890') {
       currentCV.value.personalInfo.phone = '+998 90 123 45 67'
     }
@@ -156,23 +161,21 @@ export const useCvStore = defineStore('cv', () => {
       status: currentCV.value.matchScore > 80 ? 'Optimized' : 'Ready',
       lastModified: 'Just now',
       template: templates.value.find(t => t.id === selectedTemplate.value)?.name || 'Minimal',
-      data: JSON.parse(JSON.stringify(currentCV.value)) // Save snapshot
+      data: JSON.parse(JSON.stringify(currentCV.value))
     })
   }
 
   const clearCurrentCV = () => {
     currentCV.value = {
-      personalInfo: {
-        fullName: '',
-        email: '',
-        phone: '',
-        location: '',
-        linkedin: ''
-      },
+      personalInfo: { fullName: '', email: '', phone: '', location: '', linkedin: '' },
       summary: '',
       skills: [],
       experience: [],
       education: [],
+      projects: [],
+      certifications: [],
+      languages: [],
+      interests: [],
       keywords: [],
       matchScore: 0
     }
@@ -183,6 +186,7 @@ export const useCvStore = defineStore('cv', () => {
     currentJobDescription,
     isGenerating,
     currentCV,
+    tailoringOptions,
     selectedTemplate,
     templates,
     cvs,

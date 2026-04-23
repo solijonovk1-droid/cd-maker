@@ -348,7 +348,7 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
       </div>
 
       <div class="flex-1 overflow-y-auto p-20 flex justify-center custom-scrollbar">
-         <div :style="{ transform: `scale(${zoomLevel/100})`, transformOrigin: 'top center' }" class="transition-transform duration-300">
+         <div :style="{ transform: `scale(${zoomLevel/100})`, transformOrigin: 'top center' }" class="transition-transform duration-300 cv-zoom-wrapper">
             <div class="bg-white shadow-2xl rounded-sm border border-slate-100 overflow-hidden cv-print-container">
                <CVPreview />
             </div>
@@ -389,13 +389,18 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+  .cv-zoom-wrapper {
+    transform: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
   .cv-print-container {
     visibility: visible !important;
-    position: fixed !important;
+    position: absolute !important;
     left: 0 !important;
     top: 0 !important;
     width: 210mm !important;
-    /* Remove height to allow content to flow if needed, or keep for single page */
     min-height: 297mm !important;
     margin: 0 !important;
     padding: 0 !important;

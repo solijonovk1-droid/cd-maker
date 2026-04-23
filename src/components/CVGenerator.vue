@@ -322,11 +322,11 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
 
       <div class="flex-1 overflow-y-auto p-20 flex justify-center custom-scrollbar">
          <div :style="{ transform: `scale(${zoomLevel/100})`, transformOrigin: 'top center' }" class="transition-transform duration-300">
-            <div class="bg-white shadow-2xl rounded-sm border border-slate-100 overflow-hidden">
+            <div class="bg-white shadow-2xl rounded-sm border border-slate-100 overflow-hidden cv-print-container">
                <CVPreview />
             </div>
          </div>
-         <div class="fixed bottom-10 right-10 flex items-center gap-3 bg-slate-900 px-5 py-3 rounded-2xl shadow-2xl z-20">
+         <div class="fixed bottom-10 right-10 flex items-center gap-3 bg-slate-900 px-5 py-3 rounded-2xl shadow-2xl z-20 print:hidden">
             <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
             <span class="text-[10px] font-black uppercase tracking-widest text-white opacity-80">Live Canvas Active</span>
          </div>
@@ -342,4 +342,30 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.05); border-radius: 100px; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media print {
+  body * { visibility: hidden; }
+  .cv-print-container, .cv-print-container * {
+    visibility: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .cv-print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm; /* A4 width */
+    height: 297mm; /* A4 height */
+    margin: 0;
+    padding: 0;
+    background: white !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  @page {
+    margin: 0;
+    size: A4;
+  }
+}
 </style>

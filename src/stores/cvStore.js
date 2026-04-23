@@ -10,7 +10,8 @@ export const useCvStore = defineStore('cv', () => {
       email: '',
       phone: '',
       location: '',
-      linkedin: ''
+      linkedin: '',
+      photo: ''
     },
     summary: '',
     skills: [],

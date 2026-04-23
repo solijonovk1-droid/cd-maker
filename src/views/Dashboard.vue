@@ -520,7 +520,7 @@ watch(() => authStore.user, (newUser) => {
                    <div class="bg-white rounded-[2.5rem] border border-slate-200 p-10 shadow-xl shadow-slate-200/50">
                       <div class="flex items-center gap-6 mb-10 pb-10 border-b border-slate-100">
                          <div class="avatar placeholder">
-                            <div class="bg-indigo-600 text-white rounded-3xl w-24 h-24 shadow-2xl shadow-indigo-200">
+                            <div class="bg-indigo-600 text-white rounded-3xl w-24 h-24 shadow-2xl shadow-indigo-200 flex items-center justify-center">
                                <span class="text-3xl font-black">{{ (authStore.user?.user_metadata?.full_name?.[0] ?? authStore.user?.email?.[0] ?? 'U').toUpperCase() }}</span>
                             </div>
                          </div>
@@ -791,7 +791,7 @@ watch(() => authStore.user, (newUser) => {
           <div class="space-y-4">
             <div @click="openProfileEditor" class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 group cursor-pointer hover:bg-white hover:shadow-xl hover:shadow-slate-100 transition-all duration-300">
               <div class="avatar placeholder shrink-0">
-                <div class="bg-indigo-600 text-white rounded-xl w-10 shadow-md group-hover:scale-110 transition-transform">
+                <div class="bg-indigo-600 text-white rounded-xl w-10 h-10 shadow-md group-hover:scale-110 transition-transform flex items-center justify-center">
                   <span class="text-xs font-black">{{ (authStore.user?.user_metadata?.full_name?.[0] ?? authStore.user?.email?.[0] ?? 'U').toUpperCase() }}</span>
                 </div>
               </div>

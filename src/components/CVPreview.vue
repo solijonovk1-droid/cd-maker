@@ -17,7 +17,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
       <header :style="{ backgroundColor: tpl.color }" class="text-white p-12 flex justify-between items-center relative overflow-hidden">
         <div class="flex items-center gap-8 relative z-10">
           <div class="w-32 h-32 rounded-3xl border-4 overflow-hidden bg-slate-200 rotate-3 shadow-2xl" :style="{ borderColor: tpl.accent }">
-             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kamron" alt="Avatar" class="w-full h-full object-cover -rotate-3" />
+             <img :src="cv.personalInfo.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + cv.personalInfo.fullName" alt="Avatar" class="w-full h-full object-cover -rotate-3" />
           </div>
           <div>
             <h1 class="text-5xl font-black tracking-tight mb-1 uppercase">{{ cv.personalInfo.fullName }}</h1>
@@ -143,7 +143,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
     <div v-if="tpl.layout === 'sidebar'" class="flex h-full min-h-[297mm] text-slate-800 font-sans">
       <div class="w-1/3 flex flex-col p-10" :style="{ backgroundColor: tpl.color, color: '#ffffff' }">
         <div class="w-40 h-40 rounded-3xl overflow-hidden shadow-2xl mx-auto mb-10 border-4" :style="{ borderColor: 'rgba(255,255,255,0.2)' }">
-           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Herman" alt="Avatar" class="w-full h-full object-cover" />
+           <img :src="cv.personalInfo.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + cv.personalInfo.fullName" alt="Avatar" class="w-full h-full object-cover" />
         </div>
         <div class="space-y-10">
            <section>
@@ -210,7 +210,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
     <div v-if="tpl.layout === 'bold'" class="flex flex-col h-full min-h-[297mm] text-slate-800 font-sans">
       <header class="text-center p-14 relative" :style="{ backgroundColor: tpl.color, color: '#ffffff' }">
         <div class="w-32 h-32 rounded-full border-4 overflow-hidden mx-auto mb-6 shadow-2xl relative z-10" :style="{ borderColor: tpl.accent }">
-           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Maria" alt="Avatar" class="w-full h-full object-cover" />
+           <img :src="cv.personalInfo.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + cv.personalInfo.fullName" alt="Avatar" class="w-full h-full object-cover" />
         </div>
         <h1 class="text-5xl font-black tracking-tighter mb-2 relative z-10">{{ cv.personalInfo.fullName }}</h1>
         <div class="flex justify-center gap-6 mt-6 text-sm font-medium relative z-10" :style="{ color: 'rgba(255,255,255,0.8)' }">

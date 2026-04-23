@@ -223,8 +223,35 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
 
               <div class="space-y-6">
                  <div v-if="activeTab === 'personal'" class="space-y-4">
+                    <!-- Photo Upload Section -->
+                    <div class="flex flex-col items-center gap-4 p-6 bg-slate-50 rounded-3xl border border-dashed border-slate-300 group hover:border-indigo-400 transition-all">
+                      <div class="relative group cursor-pointer" @click="$refs.photoInput.click()">
+                        <div class="w-24 h-24 rounded-3xl overflow-hidden bg-slate-200 shadow-xl border-4 border-white group-hover:scale-105 transition-transform">
+                          <img v-if="store.currentCV.personalInfo.photo" :src="store.currentCV.personalInfo.photo" class="w-full h-full object-cover" />
+                          <div v-else class="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-200">
+                             <User class="w-10 h-10" />
+                          </div>
+                        </div>
+                        <div class="absolute inset-0 bg-indigo-600/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl">
+                           <RotateCcw class="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                      <input type="file" ref="photoInput" @change="e => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = (e) => store.currentCV.personalInfo.photo = e.target.result;
+                          reader.readAsDataURL(file);
+                        }
+                      }" class="hidden" accept="image/*" />
+                      <div class="text-center">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-slate-800">Profile Photo</p>
+                        <button v-if="store.currentCV.personalInfo.photo" @click="store.currentCV.personalInfo.photo = ''" class="text-[9px] font-bold text-rose-500 uppercase mt-1">Remove photo</button>
+                      </div>
+                    </div>
+
                     <div v-for="field in [
-                      { key: 'fullName',  label: 'Full Name' }, { key: 'email', label: 'Email' }, { key: 'phone', label: 'Phone' }, { key: 'location', label: 'Location' }
+                      { key: 'fullName',  label: 'Full Name' }, { key: 'email', label: 'Email' }, { key: 'phone', label: 'Phone' }, { key: 'location', label: 'Location' }, { key: 'linkedin', label: 'LinkedIn' }
                     ]" :key="field.key" class="form-control">
                       <label class="label mb-1.5"><span class="label-text font-black text-[10px] uppercase tracking-widest text-slate-400">{{ field.label }}</span></label>
                       <input v-model="store.currentCV.personalInfo[field.key]" type="text" class="input input-bordered w-full rounded-2xl bg-slate-50" />

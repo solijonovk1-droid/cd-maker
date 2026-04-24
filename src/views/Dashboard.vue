@@ -293,74 +293,97 @@ watch(() => authStore.user, (newUser) => {
                 <div class="aspect-[3/4] relative overflow-hidden" :style="{ background: tpl.bg }">
 
                   <!-- LAYOUT: minimal -->
-                  <div v-if="tpl.layout === 'minimal'" class="absolute inset-0 p-4 flex flex-col gap-2 transition-transform duration-700"
+                  <div v-if="tpl.layout === 'minimal'" class="absolute inset-0 p-4 flex flex-col transition-transform duration-700"
                     :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
-                    <div class="h-10 rounded-lg mb-1" :style="{ background: tpl.color }"></div>
-                    <div class="h-1.5 rounded w-2/3" :style="{ background: tpl.accent, opacity: 0.8 }"></div>
-                    <div class="h-1 rounded w-1/2 bg-slate-300 mt-1"></div>
-                    <div class="h-px w-full mt-2 mb-1" :style="{ background: tpl.accent, opacity: 0.5 }"></div>
-                    <div class="space-y-1.5">
-                      <div class="h-1 rounded bg-slate-200 w-full"></div>
-                      <div class="h-1 rounded bg-slate-200 w-5/6"></div>
-                      <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                    <!-- Header -->
+                    <div class="text-center mb-3">
+                      <div class="text-[11px] font-black uppercase tracking-widest" :style="{ color: tpl.color }">Daniel Weber</div>
+                      <div class="text-[5px] font-bold uppercase tracking-wider mt-0.5" :style="{ color: tpl.accent }">Senior Software Engineer</div>
+                      <div class="text-[4px] text-slate-400 mt-0.5 font-medium">New York, NY • daniel@example.com • +1 234 567 890</div>
                     </div>
-                    <div class="h-1.5 rounded w-1/3 mt-3 font-bold" :style="{ background: tpl.accent }"></div>
-                    <div class="space-y-1 mt-1">
-                      <div class="flex gap-1.5 items-center">
-                        <div class="w-1.5 h-1.5 rounded-full" :style="{ background: tpl.accent }"></div>
-                        <div class="h-1 rounded bg-slate-200 flex-1"></div>
+                    
+                    <!-- Content -->
+                    <div class="text-[5px] font-bold uppercase border-b pb-0.5 mb-1.5" :style="{ color: tpl.accent, borderColor: tpl.accent }">Professional Summary</div>
+                    <div class="text-[4px] leading-[6px] text-slate-600 mb-2 font-medium">Results-driven Software Engineer with 5+ years of experience developing scalable web applications. Proficient in modern JavaScript frameworks and cloud architectures. Passionate about writing clean, maintainable code and solving complex technical challenges.</div>
+                    
+                    <div class="text-[5px] font-bold uppercase border-b pb-0.5 mb-1.5 mt-1" :style="{ color: tpl.accent, borderColor: tpl.accent }">Work Experience</div>
+                    <div class="mb-1.5">
+                      <div class="flex justify-between items-end">
+                        <div class="text-[4.5px] font-bold text-slate-800">Tech Lead - InnovateCorp</div>
+                        <div class="text-[4px] text-slate-400 font-bold">2021 - Present</div>
                       </div>
-                      <div class="flex gap-1.5 items-center">
-                        <div class="w-1.5 h-1.5 rounded-full" :style="{ background: tpl.accent }"></div>
-                        <div class="h-1 rounded bg-slate-200 flex-1"></div>
-                      </div>
-                      <div class="flex gap-1.5 items-center">
-                        <div class="w-1.5 h-1.5 rounded-full" :style="{ background: tpl.accent }"></div>
-                        <div class="h-1 rounded bg-slate-200 w-3/4"></div>
-                      </div>
+                      <ul class="list-disc pl-2 mt-0.5 space-y-0.5 text-[4px] leading-[5px] text-slate-600">
+                        <li>Architected and implemented a microservices strategy reducing load time by 40%.</li>
+                        <li>Mentored a team of 4 junior developers, increasing team velocity by 25%.</li>
+                      </ul>
                     </div>
-                    <div class="h-1.5 rounded w-1/3 mt-3" :style="{ background: tpl.accent }"></div>
-                    <div class="space-y-1 mt-1">
-                      <div class="h-1 rounded bg-slate-200 w-full"></div>
-                      <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                    <div>
+                      <div class="flex justify-between items-end">
+                        <div class="text-[4.5px] font-bold text-slate-800">Frontend Dev - WebSolutions</div>
+                        <div class="text-[4px] text-slate-400 font-bold">2018 - 2021</div>
+                      </div>
+                      <ul class="list-disc pl-2 mt-0.5 space-y-0.5 text-[4px] leading-[5px] text-slate-600">
+                        <li>Developed responsive interfaces achieving 98% Lighthouse performance scores.</li>
+                      </ul>
+                    </div>
+                    
+                    <div class="text-[5px] font-bold uppercase border-b pb-0.5 mb-1.5 mt-2" :style="{ color: tpl.accent, borderColor: tpl.accent }">Skills</div>
+                    <div class="flex flex-wrap gap-1">
+                      <span class="text-[3.5px] px-1 py-0.5 rounded bg-slate-100 text-slate-600 font-bold">React.js</span>
+                      <span class="text-[3.5px] px-1 py-0.5 rounded bg-slate-100 text-slate-600 font-bold">TypeScript</span>
+                      <span class="text-[3.5px] px-1 py-0.5 rounded bg-slate-100 text-slate-600 font-bold">Node.js</span>
+                      <span class="text-[3.5px] px-1 py-0.5 rounded bg-slate-100 text-slate-600 font-bold">Tailwind CSS</span>
                     </div>
                   </div>
 
                   <!-- LAYOUT: sidebar -->
                   <div v-else-if="tpl.layout === 'sidebar'" class="absolute inset-0 flex transition-transform duration-700"
                     :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
-                    <div class="w-2/5 h-full flex flex-col gap-3 p-3" :style="{ background: tpl.color }">
-                      <div class="w-10 h-10 rounded-full mx-auto mt-2" :style="{ background: tpl.accent, opacity: 0.8 }"></div>
-                      <div class="h-1.5 rounded w-3/4 mx-auto bg-white/40"></div>
-                      <div class="h-1 rounded w-1/2 mx-auto bg-white/20"></div>
-                      <div class="h-px w-full bg-white/20 my-1"></div>
-                      <div class="space-y-1.5">
-                        <div class="h-1 rounded bg-white/30 w-full"></div>
-                        <div class="h-1 rounded bg-white/20 w-5/6"></div>
-                        <div class="h-1 rounded bg-white/20 w-4/5"></div>
-                      </div>
-                      <div class="mt-2 space-y-1">
-                        <div class="h-4 rounded" :style="{ background: tpl.accent, opacity: 0.5 }"></div>
-                        <div class="h-1 rounded bg-white/20 w-full"></div>
-                        <div class="h-1 rounded bg-white/20 w-5/6"></div>
+                    <!-- Sidebar -->
+                    <div class="w-2/5 h-full p-2.5 flex flex-col items-center" :style="{ background: tpl.color }">
+                      <div class="w-10 h-10 rounded-full mb-2 bg-white/20 border-2 text-white flex items-center justify-center text-[12px] font-black" :style="{ borderColor: tpl.accent }">DW</div>
+                      <div class="text-[3.5px] text-white/70 text-center mb-3">daniel@example.com<br/>+1 234 567 890<br/>New York, NY</div>
+                      
+                      <div class="w-full text-left">
+                        <div class="text-[4.5px] font-bold uppercase text-white mb-1 border-b border-white/20 pb-0.5">Education</div>
+                        <div class="text-[4px] text-white/90 font-bold">BS Computer Science</div>
+                        <div class="text-[3.5px] text-white/60 mb-2">MIT, 2014-2018</div>
+                        
+                        <div class="text-[4.5px] font-bold uppercase text-white mb-1 border-b border-white/20 pb-0.5 mt-2">Skills</div>
+                        <div class="text-[3.5px] text-white/80 leading-[5px] font-medium">React.js<br/>Vue.js<br/>Node.js<br/>TypeScript<br/>AWS<br/>Docker</div>
                       </div>
                     </div>
-                    <div class="flex-1 p-3 flex flex-col gap-2">
-                      <div class="h-1.5 rounded w-1/2 mt-2" :style="{ background: tpl.accent }"></div>
-                      <div class="space-y-1">
-                        <div class="h-1 rounded bg-slate-200 w-full"></div>
-                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                    
+                    <!-- Main Content -->
+                    <div class="flex-1 p-3 bg-white">
+                      <div class="text-[14px] font-black uppercase tracking-tight text-slate-800 leading-none">Daniel</div>
+                      <div class="text-[14px] font-black uppercase tracking-tight leading-none" :style="{ color: tpl.color }">Weber</div>
+                      <div class="text-[4.5px] font-bold uppercase tracking-widest mt-1 mb-2" :style="{ color: tpl.accent }">Software Engineer</div>
+                      
+                      <div class="text-[4px] leading-[5.5px] text-slate-600 mb-3 font-medium">Innovative Software Engineer with 5+ years building performing, scalable user interfaces and backend architectures. Dedicated to clean code.</div>
+                      
+                      <div class="text-[5px] font-bold uppercase text-slate-800 mb-1 border-b border-slate-200 pb-0.5">Experience</div>
+                      <div class="mb-2">
+                        <div class="flex justify-between items-end">
+                          <div class="text-[4.5px] font-bold text-slate-800">Tech Lead</div>
+                          <div class="text-[3.5px] font-bold" :style="{ color: tpl.accent }">2021 - Present</div>
+                        </div>
+                        <div class="text-[4px] text-slate-500 mb-0.5 font-bold">InnovateCorp</div>
+                        <ul class="list-disc pl-2 space-y-0.5 text-[4px] leading-[5px] text-slate-600">
+                          <li>Led a team of 5 engineers to deliver key product features.</li>
+                          <li>Optimized database queries, reducing response time by 50%.</li>
+                        </ul>
                       </div>
-                      <div class="h-1.5 rounded w-1/3 mt-2" :style="{ background: tpl.accent }"></div>
-                      <div class="space-y-1">
-                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
-                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
-                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 w-3/4"></div></div>
-                      </div>
-                      <div class="h-1.5 rounded w-2/5 mt-2" :style="{ background: tpl.accent }"></div>
-                      <div class="space-y-1">
-                        <div class="h-1 rounded bg-slate-200 w-full"></div>
-                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                      
+                      <div>
+                        <div class="flex justify-between items-end">
+                          <div class="text-[4.5px] font-bold text-slate-800">Frontend Dev</div>
+                          <div class="text-[3.5px] font-bold" :style="{ color: tpl.accent }">2018 - 2021</div>
+                        </div>
+                        <div class="text-[4px] text-slate-500 mb-0.5 font-bold">WebSolutions</div>
+                        <ul class="list-disc pl-2 space-y-0.5 text-[4px] leading-[5px] text-slate-600">
+                          <li>Developed fully responsive SPAs.</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -368,67 +391,83 @@ watch(() => authStore.user, (newUser) => {
                   <!-- LAYOUT: bold -->
                   <div v-else-if="tpl.layout === 'bold'" class="absolute inset-0 flex flex-col transition-transform duration-700"
                     :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
-                    <div class="h-1/3 flex flex-col items-center justify-center gap-2 p-3 relative overflow-hidden" :style="{ background: tpl.color }">
+                    <div class="h-1/3 flex flex-col items-center justify-center p-3 relative overflow-hidden" :style="{ background: tpl.color }">
                       <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full opacity-20" :style="{ background: tpl.accent }"></div>
-                      <div class="w-12 h-12 rounded-2xl" :style="{ background: tpl.accent }"></div>
-                      <div class="h-2 rounded w-2/3 bg-white/70"></div>
-                      <div class="h-1 rounded w-1/2 bg-white/40"></div>
+                      <div class="text-[12px] font-black uppercase tracking-widest text-white relative z-10">DANIEL WEBER</div>
+                      <div class="text-[5px] font-bold uppercase tracking-widest mt-1 px-2 py-0.5 rounded-full text-white/90 relative z-10" :style="{ background: tpl.accent }">Creative Developer</div>
                     </div>
-                    <div class="flex-1 p-4 flex flex-col gap-2">
-                      <div class="flex gap-2 mt-1">
-                        <div class="px-2 py-0.5 rounded-full text-[6px] font-bold" :style="{ background: tpl.accent + '22', color: tpl.accent }">●</div>
-                        <div class="px-2 py-0.5 rounded-full text-[6px]" :style="{ background: tpl.accent + '11' }">●</div>
-                        <div class="px-2 py-0.5 rounded-full text-[6px]" :style="{ background: tpl.accent + '11' }">●</div>
+                    <div class="flex-1 p-3 flex flex-col gap-2 bg-white">
+                      <!-- Contact -->
+                      <div class="flex justify-center gap-2 mt-1 mb-2">
+                        <div class="text-[3.5px] font-bold text-slate-500">daniel@example.com</div>
+                        <div class="text-[3.5px] font-bold text-slate-300">•</div>
+                        <div class="text-[3.5px] font-bold text-slate-500">+1 234 567 890</div>
+                        <div class="text-[3.5px] font-bold text-slate-300">•</div>
+                        <div class="text-[3.5px] font-bold text-slate-500">New York</div>
                       </div>
-                      <div class="space-y-1.5 mt-1">
-                        <div class="h-1 rounded bg-slate-200 w-full"></div>
-                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
-                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
-                      </div>
-                      <div class="h-px w-full my-1" :style="{ background: tpl.accent, opacity: 0.3 }"></div>
-                      <div class="h-1.5 rounded w-2/5" :style="{ background: tpl.color }"></div>
-                      <div class="space-y-1">
-                        <div class="flex gap-1.5 items-start">
-                          <div class="w-1.5 h-1.5 rounded mt-0.5" :style="{ background: tpl.accent }"></div>
-                          <div class="flex-1 space-y-0.5"><div class="h-1 rounded bg-slate-200 w-full"></div><div class="h-1 rounded bg-slate-200 w-3/4"></div></div>
+                      
+                      <div class="text-[4.5px] font-bold uppercase rounded px-1.5 py-0.5 w-fit" :style="{ background: tpl.accent + '1A', color: tpl.color }">Profile</div>
+                      <div class="text-[4px] leading-[5px] text-slate-600 mb-1 pl-1 font-medium">Creative and detail-oriented frontend developer with a passion for building interactive, visually stunning user experiences using modern web technologies.</div>
+                      
+                      <div class="text-[4.5px] font-bold uppercase rounded px-1.5 py-0.5 w-fit mt-1" :style="{ background: tpl.accent + '1A', color: tpl.color }">Experience</div>
+                      <div class="pl-1">
+                        <div class="flex justify-between items-baseline mb-0.5">
+                          <div class="text-[4.5px] font-bold text-slate-800">Senior UI Engineer <span class="text-slate-400 font-normal">| StudioX</span></div>
+                          <div class="text-[3.5px] font-bold" :style="{ color: tpl.accent }">2021 - Present</div>
                         </div>
-                        <div class="flex gap-1.5 items-start">
-                          <div class="w-1.5 h-1.5 rounded mt-0.5" :style="{ background: tpl.accent }"></div>
-                          <div class="flex-1 space-y-0.5"><div class="h-1 rounded bg-slate-200 w-full"></div><div class="h-1 rounded bg-slate-200 w-2/3"></div></div>
+                        <div class="text-[4px] leading-[5px] text-slate-600 mb-1.5 font-medium">Spearheaded the redesign of the core flagship application, introducing a custom design system that cut development time in half for future features.</div>
+                        
+                        <div class="flex justify-between items-baseline mb-0.5">
+                          <div class="text-[4.5px] font-bold text-slate-800">Web Developer <span class="text-slate-400 font-normal">| AgencyY</span></div>
+                          <div class="text-[3.5px] font-bold" :style="{ color: tpl.accent }">2019 - 2021</div>
                         </div>
+                        <div class="text-[4px] leading-[5px] text-slate-600 font-medium">Built robust CMS integrations for high-profile clients.</div>
                       </div>
                     </div>
                   </div>
 
                   <!-- LAYOUT: split -->
-                  <div v-else-if="tpl.layout === 'split'" class="absolute inset-0 flex flex-col transition-transform duration-700"
+                  <div v-else-if="tpl.layout === 'split'" class="absolute inset-0 flex flex-col transition-transform duration-700 bg-amber-50"
                     :class="tpl.premium && authStore.userPlan === 'Free' ? 'blur-sm grayscale' : 'group-hover:scale-105'">
-                    <div class="h-[45%] p-4 flex flex-col justify-end gap-2" :style="{ background: tpl.color }">
-                      <div class="h-2 rounded w-3/4 bg-white/80"></div>
-                      <div class="h-1 rounded w-2/4 bg-white/50"></div>
-                      <div class="flex gap-2 mt-1">
-                        <div class="h-1 rounded w-12" :style="{ background: tpl.accent }"></div>
-                        <div class="h-1 rounded w-12 bg-white/30"></div>
-                      </div>
+                    <!-- Top dark area -->
+                    <div class="h-[35%] p-4 flex flex-col justify-end" :style="{ background: tpl.color }">
+                      <div class="text-[14px] font-serif font-black text-amber-50 uppercase tracking-widest leading-none">DANIEL</div>
+                      <div class="text-[14px] font-serif font-black uppercase tracking-widest leading-none mb-1" :style="{ color: tpl.accent }">WEBER</div>
+                      <div class="text-[5px] font-bold text-amber-100/70 tracking-[0.2em] uppercase">Executive Director of Engineering</div>
                     </div>
-                    <div class="flex-1 p-3 grid grid-cols-2 gap-3">
-                      <div class="space-y-1.5">
-                        <div class="h-1.5 rounded" :style="{ background: tpl.accent }"></div>
-                        <div class="h-1 rounded bg-slate-200 w-full"></div>
-                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
-                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
-                        <div class="h-1.5 rounded mt-2" :style="{ background: tpl.accent }"></div>
-                        <div class="h-1 rounded bg-slate-200 w-full"></div>
-                        <div class="h-1 rounded bg-slate-200 w-5/6"></div>
+                    <!-- Bottom area with 2 cols -->
+                    <div class="flex-1 px-4 py-3 grid grid-cols-12 gap-3 bg-amber-50/50">
+                      <!-- Left Col -->
+                      <div class="col-span-8 flex flex-col gap-2">
+                        <div>
+                          <div class="text-[5px] font-bold uppercase tracking-widest mb-1 border-b border-amber-900/10 pb-0.5" :style="{ color: tpl.color }">Career Highlights</div>
+                          <div class="text-[4.5px] font-bold text-slate-900">VP of Engineering - AlphaTech</div>
+                          <div class="text-[3.5px] font-bold text-amber-600 mb-0.5">2019 - Present</div>
+                          <div class="text-[4px] leading-[5.5px] text-slate-700 font-serif">Directed an organization of 50+ engineers. Scaled infrastructure to handle 10x growth in user base over two years while maintaining 99.99% uptime. Managed $5M+ department budget.</div>
+                        </div>
+                        <div>
+                          <div class="text-[4.5px] font-bold text-slate-900">Director of IT - BetaCorp</div>
+                          <div class="text-[3.5px] font-bold text-amber-600 mb-0.5">2014 - 2019</div>
+                          <div class="text-[4px] leading-[5.5px] text-slate-700 font-serif">Led digital transformation initiatives across global offices. Introduced Agile methodologies reducing time-to-market.</div>
+                        </div>
                       </div>
-                      <div class="space-y-1.5">
-                        <div class="h-1.5 rounded" :style="{ background: tpl.accent }"></div>
-                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
-                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 flex-1"></div></div>
-                        <div class="flex gap-1 items-center"><div class="w-1 h-1 rounded-full" :style="{ background: tpl.accent }"></div><div class="h-1 rounded bg-slate-200 w-3/4"></div></div>
-                        <div class="h-1.5 rounded mt-2" :style="{ background: tpl.accent }"></div>
-                        <div class="h-1 rounded bg-slate-200 w-full"></div>
-                        <div class="h-1 rounded bg-slate-200 w-4/5"></div>
+                      
+                      <!-- Right Col -->
+                      <div class="col-span-4 flex flex-col gap-2">
+                        <div>
+                          <div class="text-[5px] font-bold uppercase tracking-widest mb-1 border-b border-amber-900/10 pb-0.5" :style="{ color: tpl.color }">Contact</div>
+                          <div class="text-[3.5px] text-slate-700 font-bold leading-[5px]">daniel@exec.us<br/>+1 999 888 7777<br/>San Francisco, CA<br/>linkedin.com/in/dweber</div>
+                        </div>
+                        <div>
+                          <div class="text-[5px] font-bold uppercase tracking-widest mb-1 border-b border-amber-900/10 pb-0.5 mt-1" :style="{ color: tpl.color }">Core Expertise</div>
+                          <ul class="list-disc pl-1.5 text-[3.5px] text-slate-700 font-bold leading-[4.5px] space-y-0.5">
+                            <li>Strategic Planning</li>
+                            <li>Team Leadership</li>
+                            <li>Cloud Architecture</li>
+                            <li>Budget Management</li>
+                            <li>Digital Growth</li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -22,7 +22,7 @@ const tabScrollArea = ref(null)
 const photoInput = ref(null)
 const showUpgradeModal = ref(false)
 const previewPanel = ref(null)
-const isSaving = ref(false)
+
 
 provide('setActiveTab', (tabId) => {
   activeTab.value = tabId

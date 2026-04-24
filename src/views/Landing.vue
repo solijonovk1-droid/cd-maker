@@ -45,7 +45,7 @@ const steps = [
 ]
 
 const testimonials = [
-  { name: 'Sarah Jenkins', role: 'Software Engineer at Google', text: 'AICV Builder helped me land 3 interviews in a week after months of silence.', avatar: 'SJ' },
+  { name: 'Sarah Jenkins', role: 'Software Engineer at Google', text: 'Resumely helped me land 3 interviews in a week after months of silence.', avatar: 'SJ' },
   { name: 'David Chen', role: 'Marketing Director', text: 'The keyword matching is terrifyingly accurate. It saved me hours of manual editing.', avatar: 'DC' },
   { name: 'Elena Rossi', role: 'Product Manager', text: 'A game changer for job seekers. Every resume feels personal and professional.', avatar: 'ER' }
 ]
@@ -291,7 +291,7 @@ import { Search } from 'lucide-vue-next'
           <CvMakerLogo size="md" />
         </div>
         <p class="text-slate-400 font-semibold max-w-xs leading-relaxed">The AI-first platform for job seekers who value their time and career growth.</p>
-        <p class="mt-10 text-xs font-bold text-slate-300 uppercase tracking-widest">© 2026 AICV Builder. All rights reserved.</p>
+        <p class="mt-10 text-xs font-bold text-slate-300 uppercase tracking-widest">© 2026 Resumely. All rights reserved.</p>
       </aside> 
       <nav>
         <h6 class="footer-title opacity-40 font-black tracking-widest">Product</h6> 

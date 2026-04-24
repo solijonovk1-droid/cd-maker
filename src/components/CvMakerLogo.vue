@@ -56,7 +56,7 @@ defineProps({
         white ? 'text-white' : 'text-slate-900'
       ]"
     >
-      CV <span class="text-blue-600">Maker</span>
+      Resume<span class="text-blue-600">ly</span>
     </span>
   </div>
 </template>

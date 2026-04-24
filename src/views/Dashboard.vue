@@ -633,7 +633,7 @@ watch(() => authStore.user, (newUser) => {
                     <div class="flex justify-between items-end">
                       <div>
                         <p class="text-[9px] font-black uppercase tracking-widest text-indigo-400 mb-1">Account Holder</p>
-                        <p class="text-sm font-bold uppercase">CV MAKER PROJECT</p>
+                        <p class="text-sm font-bold uppercase">RESUMELY</p>
                       </div>
                       <div class="text-right">
                         <p class="text-[9px] font-black uppercase tracking-widest text-indigo-400 mb-1">Amount</p>

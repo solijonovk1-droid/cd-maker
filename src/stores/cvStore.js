@@ -53,7 +53,18 @@ export const useCvStore = defineStore('cv', () => {
     { id: 'minimal', name: 'Modern Split', premium: false, color: '#0f172a', accent: '#6366f1', bg: '#ffffff', layout: 'minimal' },
     { id: 'professional', name: 'Enterprise Sidebar', premium: false, color: '#1e293b', accent: '#0ea5e9', bg: '#f8fafc', layout: 'sidebar' },
     { id: 'creative', name: 'Neo-Glow', premium: false, color: '#4c1d95', accent: '#ec4899', bg: '#ffffff', layout: 'bold' },
+    { id: 'simple-elegant', name: 'Simple Elegant', premium: false, color: '#27272a', accent: '#0d9488', bg: '#ffffff', layout: 'split' },
+    { id: 'clean-crisp', name: 'Clean & Crisp', premium: false, color: '#334155', accent: '#059669', bg: '#ffffff', layout: 'minimal' },
+    { id: 'classic-corp', name: 'Classic Corp', premium: false, color: '#1e3a8a', accent: '#475569', bg: '#f8fafc', layout: 'sidebar' },
+    
     { id: 't4', name: 'Executive Gold', premium: true, color: '#451a03', accent: '#d97706', bg: '#fffbeb', layout: 'split' },
+    { id: 'midnight-pro', name: 'Midnight Pro', premium: true, color: '#020617', accent: '#6366f1', bg: '#f8fafc', layout: 'bold' },
+    { id: 'crimson-exec', name: 'Crimson Exec', premium: true, color: '#4c0519', accent: '#e11d48', bg: '#fff1f2', layout: 'sidebar' },
+    { id: 'forest-tech', name: 'Forest Tech', premium: true, color: '#022c22', accent: '#10b981', bg: '#ecfdf5', layout: 'split' },
+    { id: 'tech-innovator', name: 'Tech Innovator', premium: true, color: '#0c4a6e', accent: '#06b6d4', bg: '#f0f9ff', layout: 'bold' },
+    { id: 'royal-minimal', name: 'Royal Minimal', premium: true, color: '#3b0764', accent: '#c026d3', bg: '#ffffff', layout: 'minimal' },
+    { id: 'monochrome', name: 'Pure Monochrome', premium: true, color: '#000000', accent: '#171717', bg: '#ffffff', layout: 'minimal' },
+    { id: 'ocean-breeze', name: 'Ocean Breeze', premium: true, color: '#1e3a8a', accent: '#0ea5e9', bg: '#f0f9ff', layout: 'split' },
   ])
 
   const cvs = ref([])

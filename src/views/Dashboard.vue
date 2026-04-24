@@ -89,7 +89,7 @@ const plans = [
     name: 'Free',
     price: '$0',
     description: 'Perfect for trying out our services.',
-    features: ['2 CV Generations', 'Basic Templates', 'PDF Export'],
+    features: ['3 AI Generations', 'Basic Templates', 'PDF Export'],
     buttonText: 'Current Plan',
     popular: false
   },

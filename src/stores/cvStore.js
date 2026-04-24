@@ -90,6 +90,7 @@ export const useCvStore = defineStore('cv', () => {
           currentCV.value.languages = ['Uzbek (Native)', 'English (Intermediate)', 'Russian (Basic)']
           currentCV.value.interests = ['Web Development', 'Technology & Startups', 'UI/UX Design']
           currentCV.value.matchScore = 98
+          generationCount.value++
           isGenerating.value = false
           resolve(true)
         }, 1500)

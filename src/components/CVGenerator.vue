@@ -17,6 +17,10 @@ const zoomLevel = ref(100)
 const tabScrollArea = ref(null)
 const photoInput = ref(null)
 
+provide('setActiveTab', (tabId) => {
+  activeTab.value = tabId
+})
+
 const handlePhotoUpload = (e) => {
   const file = e.target.files[0]
   if (file) {
@@ -39,9 +43,13 @@ const tabs = [
   { id: 'personal',   icon: User,           label: 'Personal' },
   { id: 'summary',    icon: FileText,       label: 'Objective' },
   { id: 'experience', icon: Briefcase,      label: 'Work' },
+  { id: 'projects',   icon: Zap,            label: 'Projects' },
   { id: 'skills',     icon: Check,          label: 'Skills' },
   { id: 'education',  icon: GraduationCap,  label: 'Academic' },
-  { id: 'labels',     icon: MessageSquare,  label: 'Labels' },
+  { id: 'certs',      icon: Award,          label: 'Certs' },
+  { id: 'languages',  icon: MessageSquare,  label: 'Langs' },
+  { id: 'interests',  icon: Sparkles,       label: 'Interests' },
+  { id: 'labels',     icon: Search,         label: 'Labels' },
 ]
 
 const handleGenerate = async () => {
@@ -81,6 +89,18 @@ const addSkill = () => {
   if (newSkill.value.trim()) {
     store.currentCV.skills.push(newSkill.value.trim())
     newSkill.value = ''
+  }
+}
+const addCert = () => {
+  if (newCert.value.trim()) {
+    store.currentCV.certifications.push(newCert.value.trim())
+    newCert.value = ''
+  }
+}
+const addInterest = () => {
+  if (newInterest.value.trim()) {
+    store.currentCV.interests.push(newInterest.value.trim())
+    newInterest.value = ''
   }
 }
 const removeSkill = (idx) => store.currentCV.skills.splice(idx, 1)
@@ -293,6 +313,23 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
                     </div>
                  </div>
 
+                  <div v-if="activeTab === 'projects'" class="space-y-6">
+                     <button @click="store.currentCV.projects.unshift({ name: '', description: '', link: '' })" class="btn btn-neutral w-full rounded-2xl gap-3 font-black uppercase text-xs tracking-widest">
+                        <Plus class="w-4 h-4" /> Add Project
+                     </button>
+                     <div v-for="(project, idx) in store.currentCV.projects" :key="idx" class="p-6 bg-white border border-slate-200 rounded-3xl space-y-4 relative">
+                        <button @click="store.currentCV.projects.splice(idx, 1)" class="absolute top-4 right-4 text-rose-500"><Trash2 class="w-4 h-4" /> </button>
+                        <div class="form-control">
+                           <label class="label p-0 mb-1.5"><span class="label-text text-[9px] font-black uppercase tracking-widest text-slate-400">Project Name</span></label>
+                           <input v-model="project.name" type="text" class="input input-bordered w-full rounded-xl font-black" />
+                        </div>
+                        <div class="form-control">
+                           <label class="label p-0 mb-1.5"><span class="label-text text-[9px] font-black uppercase tracking-widest text-slate-400">Description</span></label>
+                           <textarea v-model="project.description" class="textarea textarea-bordered w-full rounded-xl text-xs"></textarea>
+                        </div>
+                     </div>
+                  </div>
+
                  <div v-if="activeTab === 'summary'" class="space-y-4">
                     <div class="form-control">
                       <label class="label p-0 mb-3"><span class="label-text font-black text-[10px] uppercase tracking-widest text-slate-400">Summary</span></label>
@@ -329,6 +366,42 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
                        </div>
                     </div>
                  </div>
+
+                  <div v-if="activeTab === 'certs'" class="space-y-6">
+                     <div class="flex gap-2">
+                        <input v-model="newCert" @keydown.enter.prevent="addCert" type="text" placeholder="Add Certification..." class="input input-bordered flex-1 rounded-2xl bg-slate-50 font-bold text-[10px]" />
+                        <button @click="addCert" class="btn btn-neutral btn-square rounded-2xl"><Plus class="w-5 h-5" /></button>
+                     </div>
+                     <div class="flex flex-wrap gap-2">
+                        <div v-for="(cert, idx) in store.currentCV.certifications" :key="idx" class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl">
+                           <span class="text-[10px] font-bold uppercase">{{ cert }}</span>
+                           <button @click="store.currentCV.certifications.splice(idx, 1)" class="text-rose-500"><Trash2 class="w-3.5 h-3.5" /></button>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div v-if="activeTab === 'languages'" class="space-y-6">
+                     <button @click="store.currentCV.languages.push('')" class="btn btn-neutral w-full rounded-2xl gap-3 font-black uppercase text-xs tracking-widest">
+                        <Plus class="w-4 h-4" /> Add Language
+                     </button>
+                     <div v-for="(lang, idx) in store.currentCV.languages" :key="idx" class="flex gap-2">
+                        <input v-model="store.currentCV.languages[idx]" type="text" placeholder="e.g. English (Fluent)" class="input input-bordered flex-1 rounded-xl font-bold" />
+                        <button @click="store.currentCV.languages.splice(idx, 1)" class="btn btn-ghost text-rose-500"><Trash2 class="w-4 h-4" /></button>
+                     </div>
+                  </div>
+
+                  <div v-if="activeTab === 'interests'" class="space-y-6">
+                     <div class="flex gap-2">
+                        <input v-model="newInterest" @keydown.enter.prevent="addInterest" type="text" placeholder="Add Interest..." class="input input-bordered flex-1 rounded-2xl bg-slate-50 font-bold text-[10px]" />
+                        <button @click="addInterest" class="btn btn-neutral btn-square rounded-2xl"><Plus class="w-5 h-5" /></button>
+                     </div>
+                     <div class="flex flex-wrap gap-2">
+                        <div v-for="(interest, idx) in store.currentCV.interests" :key="idx" class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl">
+                           <span class="text-[10px] font-bold uppercase">{{ interest }}</span>
+                           <button @click="store.currentCV.interests.splice(idx, 1)" class="text-rose-500"><Trash2 class="w-3.5 h-3.5" /></button>
+                        </div>
+                     </div>
+                  </div>
 
                  <div v-if="activeTab === 'labels'" class="space-y-6 animate-in fade-in duration-500">
                     <div class="bg-indigo-50/50 p-6 rounded-3xl border border-indigo-100/50 mb-4">

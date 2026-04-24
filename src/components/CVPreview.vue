@@ -7,6 +7,9 @@ const store = useCvStore()
 const cv = computed(() => store.currentCV)
 const template = computed(() => store.selectedTemplate)
 const tpl = computed(() => store.templates.find(t => t.id === template.value) || store.templates[0])
+
+import { inject } from 'vue'
+const setActiveTab = inject('setActiveTab')
 </script>
 
 <template>
@@ -14,7 +17,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
     
     <!-- MINIMAL LAYOUT (Professional Refactor) -->
     <div v-if="tpl.layout === 'minimal'" class="text-slate-800 font-sans h-full bg-white">
-      <header :style="{ backgroundColor: tpl.color }" class="text-white p-12 flex justify-between items-center relative overflow-hidden">
+      <header :style="{ backgroundColor: tpl.color }" class="text-white p-12 flex justify-between items-center relative overflow-hidden cursor-pointer hover:bg-opacity-90 transition-all" @click="setActiveTab('personal')">
         <div class="flex items-center gap-8 relative z-10">
           <div class="w-32 h-32 rounded-3xl border-4 overflow-hidden bg-slate-200 rotate-3 shadow-2xl" :style="{ borderColor: tpl.accent }">
              <img :src="cv.personalInfo.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + cv.personalInfo.fullName" alt="Avatar" class="w-full h-full object-cover -rotate-3" />
@@ -35,7 +38,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
       <div class="p-12 space-y-12">
         <!-- Executive Summary (Full Width) -->
         <section>
-          <div class="flex items-center gap-3 mb-4 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+          <div @click="setActiveTab('summary')" class="flex items-center gap-3 mb-4 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
             <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.summary || 'Professional Summary' }}</h2>
           </div>
           <p class="text-sm leading-relaxed text-slate-600 font-medium italic border-l-4 pl-4 py-1" :style="{ borderColor: tpl.accent }">{{ cv.summary }}</p>
@@ -43,7 +46,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
 
         <!-- Experience (Full Width) -->
         <section>
-          <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+          <div @click="setActiveTab('experience')" class="flex items-center gap-3 mb-6 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
             <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.experience || 'Work Experience' }}</h2>
           </div>
           <div v-for="(exp, idx) in cv.experience" :key="idx" class="mb-10 last:mb-0">
@@ -65,7 +68,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
 
         <!-- Projects (Full Width) -->
         <section v-if="cv.projects && cv.projects.length">
-          <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+          <div @click="setActiveTab('projects')" class="flex items-center gap-3 mb-6 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
             <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.projects || 'Key Projects' }}</h2>
           </div>
           <div class="grid grid-cols-2 gap-8">
@@ -82,7 +85,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
         <!-- Two Column Footer Sections -->
         <div class="grid grid-cols-2 gap-16">
           <section>
-            <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+            <div @click="setActiveTab('skills')" class="flex items-center gap-3 mb-6 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
               <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.skills || 'Technical Skills' }}</h2>
             </div>
             <div class="flex flex-wrap gap-2">
@@ -92,7 +95,7 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
 
           <div class="space-y-12">
             <section>
-              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
+              <div @click="setActiveTab('education')" class="flex items-center gap-3 mb-6 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
                 <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.education || 'Education' }}</h2>
               </div>
               <div v-for="edu in cv.education" :key="edu.degree" class="mb-4 last:mb-0">
@@ -103,8 +106,8 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
             </section>
 
             <section v-if="cv.certifications && cv.certifications.length">
-              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Certifications</h2>
+              <div @click="setActiveTab('certs')" class="flex items-center gap-3 mb-6 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.certifications || 'Certifications' }}</h2>
               </div>
               <ul class="space-y-3">
                 <li v-for="cert in cv.certifications" :key="cert" class="text-xs text-slate-700 font-bold flex items-center gap-3">
@@ -115,8 +118,8 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
             </section>
 
             <section v-if="cv.languages && cv.languages.length">
-              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Languages</h2>
+              <div @click="setActiveTab('languages')" class="flex items-center gap-3 mb-6 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.languages || 'Languages' }}</h2>
               </div>
               <div class="flex flex-wrap gap-3">
                 <div v-for="lang in cv.languages" :key="lang" class="flex flex-col gap-1">
@@ -127,8 +130,8 @@ const tpl = computed(() => store.templates.find(t => t.id === template.value) ||
             </section>
 
             <section v-if="cv.interests && cv.interests.length">
-              <div class="flex items-center gap-3 mb-6 border-b-2 pb-2" :style="{ borderColor: tpl.accent }">
-                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">Interests</h2>
+              <div @click="setActiveTab('interests')" class="flex items-center gap-3 mb-6 border-b-2 pb-2 cursor-pointer hover:opacity-70 transition-opacity" :style="{ borderColor: tpl.accent }">
+                <h2 class="text-xl font-black uppercase tracking-widest" :style="{ color: tpl.color }">{{ cv.labels?.interests || 'Interests' }}</h2>
               </div>
               <div class="flex flex-wrap gap-2">
                 <span v-for="interest in cv.interests" :key="interest" class="px-3 py-1 bg-slate-50 rounded-lg text-[10px] font-bold text-slate-600 border border-slate-100">{{ interest }}</span>

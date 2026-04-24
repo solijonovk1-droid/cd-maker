@@ -1,6 +1,7 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, provide } from 'vue'
 import { useCvStore } from '../stores/cvStore'
+import { useAuthStore } from '../stores/authStore'
 import {
   Sparkles, Loader2, Download, Check, User, FileText, Briefcase,
   GraduationCap, Plus, Trash2, Zap, Wand2, Search, Info, RotateCcw,
@@ -9,6 +10,7 @@ import {
 import CVPreview from './CVPreview.vue'
 
 const store = useCvStore()
+const authStore = useAuthStore()
 const activeTab = ref('ai') // ai | personal | summary | experience | skills | education
 const expandedExp = ref({})
 const newSkill = ref('')
@@ -16,6 +18,7 @@ const isExpertMode = ref(false)
 const zoomLevel = ref(100)
 const tabScrollArea = ref(null)
 const photoInput = ref(null)
+const showUpgradeModal = ref(false)
 
 provide('setActiveTab', (tabId) => {
   activeTab.value = tabId
@@ -54,6 +57,12 @@ const tabs = [
 
 const handleGenerate = async () => {
   if (!store.currentJobDescription) return
+  
+  if (authStore.userPlan === 'Free' && store.generationCount >= 3) {
+    showUpgradeModal.value = true
+    return
+  }
+  
   await store.generateCV()
 }
 
@@ -449,6 +458,31 @@ const zoomOut = () => { if (zoomLevel.value > 50) zoomLevel.value -= 10 }
             <span class="text-[10px] font-black uppercase tracking-widest text-white opacity-80">Live Canvas Active</span>
          </div>
       </div>
+    </div>
+
+    <!-- ====== UPGRADE MODAL ====== -->
+    <div v-if="showUpgradeModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
+       <div class="bg-white rounded-[2.5rem] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-100">
+          <div class="text-center mb-8">
+             <div class="w-20 h-20 bg-indigo-50 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-indigo-600">
+                <Zap class="w-10 h-10 fill-indigo-600" />
+             </div>
+             <h3 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">Limit Reached!</h3>
+             <p class="text-slate-500 font-medium text-sm mt-4 leading-relaxed">
+                You've used all <span class="text-indigo-600 font-black">3 free AI generations</span>. 
+                Upgrade to Pro to unlock unlimited tailoring and premium templates.
+             </p>
+          </div>
+ 
+          <div class="space-y-4">
+             <button @click="emit('switch-tab', 'settings'); showUpgradeModal = false" class="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center justify-center gap-3">
+                <Zap class="w-4 h-4" /> Upgrade to Pro
+             </button>
+             <button @click="showUpgradeModal = false" class="w-full py-4 text-slate-400 font-bold uppercase tracking-widest text-[10px] hover:text-slate-600 transition-colors">
+                Maybe Later
+             </button>
+          </div>
+       </div>
     </div>
 
   </div>

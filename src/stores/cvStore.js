@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 export const useCvStore = defineStore('cv', () => {
   const currentJobDescription = ref('')
@@ -33,6 +33,12 @@ export const useCvStore = defineStore('cv', () => {
       languages: 'Languages',
       interests: 'Interests'
     }
+  })
+  
+  const generationCount = ref(parseInt(localStorage.getItem('cv_gen_count') || '0'))
+  
+  watch(generationCount, (newVal) => {
+    localStorage.setItem('cv_gen_count', newVal.toString())
   })
 
   const tailoringOptions = ref({
@@ -144,6 +150,7 @@ export const useCvStore = defineStore('cv', () => {
     } catch (error) {
       console.error("OpenAI Error:", error);
     } finally {
+      generationCount.value++
       isGenerating.value = false
     }
   }
@@ -201,6 +208,7 @@ export const useCvStore = defineStore('cv', () => {
     selectedTemplate,
     templates,
     cvs,
+    generationCount,
     generateCV,
     saveCV,
     clearCurrentCV,

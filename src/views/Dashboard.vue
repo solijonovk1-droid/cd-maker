@@ -130,13 +130,9 @@ const filteredCvs = computed(() => {
 
 const handleTemplateSelect = (template) => {
   if (template.premium && authStore.userPlan === 'Free') {
-    // Auto-upgrade them to Pro when they tap a premium template
-    authStore.updatePlan('Pro')
-    upgradedPlan.value = 'Pro'
-    showSuccess.value = true
-    setTimeout(() => {
-      showSuccess.value = false
-    }, 3000)
+    selectedPlanToUpgrade.value = plans.find(p => p.name === 'Pro')
+    showPaymentModal.value = true
+    return
   }
   
   cvStore.selectedTemplate = template.id

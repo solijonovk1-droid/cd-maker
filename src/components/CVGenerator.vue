@@ -191,12 +191,12 @@ document.addEventListener('fullscreenchange', () => {
             <div class="space-y-6">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                   <button @click="isExpertMode = !isExpertMode" 
+                   <button @click="authStore.userPlan === 'Free' ? showUpgradeModal = true : isExpertMode = !isExpertMode" 
                            :class="['btn btn-sm rounded-xl font-black text-[10px] uppercase tracking-widest gap-2', 
                                     isExpertMode ? 'btn-neutral text-white' : 'btn-ghost border-slate-200 text-slate-400']">
                       <Zap v-if="isExpertMode" class="w-3 h-3 text-amber-400" />
                       <ZapOff v-else class="w-3 h-3" />
-                      Expert Mode
+                      Expert Mode <span v-if="authStore.userPlan === 'Free'" class="text-[8px] bg-slate-200 px-1 ml-1 rounded">PRO</span>
                    </button>
                    <button @click="pasteExample" class="btn btn-ghost btn-sm rounded-xl font-black text-[10px] uppercase tracking-widest text-indigo-600 hover:bg-indigo-50">
                      Paste Example
@@ -204,7 +204,7 @@ document.addEventListener('fullscreenchange', () => {
                 </div>
               </div>
 
-              <div class="grid grid-cols-3 gap-3">
+              <div v-if="isExpertMode" class="grid grid-cols-3 gap-3 animate-in slide-in-from-top-2 fade-in duration-300">
                 <div class="form-control">
                   <span class="label-text font-black text-[9px] uppercase tracking-widest text-slate-400 mb-1.5 ml-1">Level</span>
                   <select v-model="store.tailoringOptions.level" class="select select-bordered select-sm w-full rounded-xl bg-slate-50 font-bold text-[10px] uppercase">
